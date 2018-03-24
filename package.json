@@ -1,0 +1,34 @@
+{
+  "name": "advanced-query-builder",
+  "version": "1.0.0",
+  "description": "A query builder for advanced relational sql query building",
+  "main": "index.js",
+  "scripts": {
+    "start": "set NODE_ENV=development&& nodemon --watch src/ --exec babel-node src",
+    "test": "set NODE_ENV=development&& nodemon --watch . --exec \"mocha --require babel-register **/*.spec.js\"",
+    "build": "babel lib -d dist --presets es2015,stage-2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bkapus2/query.git"
+  },
+  "author": "Brian Kapustka <brian.kupi@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bkapus2/query/issues"
+  },
+  "homepage": "https://github.com/bkapus2/query#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
+    "chai-spies": "^1.0.0",
+    "mocha": "^5.0.4",
+    "nodemon": "^1.17.1",
+    "pg": "^7.4.1",
+    "sinon": "^4.4.2",
+    "sinon-chai": "^3.0.0"
+  }
+}
