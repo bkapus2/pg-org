@@ -23,34 +23,42 @@ async function sendQuery(query) {
 const emails = table(emailModel, sendQuery);
 const users = table(userModel, sendQuery, { emails });
 
-users.insert([
-  {
-    firstName: 'Brian',
-    lastName: 'Kapustka',
-    username: 'brian.kapustka',
-    favoriteNumber: 3,
-    emails: [
-      {
-        email: 'brian.kupi@gmail.com',
-      },
-      {
-        email: 'brian.kupi@yahoo.com',
-      },
-    ],
-  },
-  {
-    firstName: 'Another',
-    lastName: 'User',
-    username: 'another.user',
-    emails: [
-      {
-        email: 'another.user@gmail.com',
-      },
-      {
-        email: 'another.user@yahoo.com',
-      },
-    ],
-  },
-]).then(value => {
+// users.insert([
+//   {
+//     firstName: 'Brian',
+//     lastName: 'Kapustka',
+//     username: 'brian.kapustka',
+//     emails: [
+//       {
+//         email: 'brian.kupi@gmail.com',
+//       },
+//       {
+//         email: 'brian.kupi@yahoo.com',
+//       },
+//     ],
+//   },
+//   {
+//     firstName: 'Another',
+//     lastName: 'User',
+//     username: 'another.user',
+//     emails: [
+//       {
+//         email: 'another.user@gmail.com',
+//       },
+//       {
+//         email: 'another.user@yahoo.com',
+//       },
+//     ],
+//   },
+// ]).then(value => {
+//   console.log(JSON.stringify(value, null, '  '))
+// }).catch(console.error);
+
+users.select({
+  firstName: ['Brian', 'Another'],
+  emails: {
+    email: ['brian.kupi@gmail.com', 'another.user@gmail.com'],
+  }
+}).then(value => {
   console.log(JSON.stringify(value, null, '  '))
 }).catch(console.error);

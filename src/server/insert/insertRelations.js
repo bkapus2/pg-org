@@ -13,7 +13,7 @@ const mergeTypeHandler = {
   'one-to-many': mergeOneToManyRelations
 }
 
-export default function insertRelations({ relations, entities, insert }) {
+export default function insertRelations({ relations, entities }) {
   return function(rootEntities) {
     return new Promise((resolve, reject) => {
       const promises = Object.entries(relations).map(([relationKey, relationModel]) => {

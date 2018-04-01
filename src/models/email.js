@@ -1,5 +1,4 @@
 export default {
-  name: 'email',
   table: 'emails',
   properties: {
     id: {

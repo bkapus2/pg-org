@@ -1,16 +1,9 @@
 import updateModel from './updateModel';
 import insertMany from './insert';
+import selectMany from './select';
 
 function validateModel(model) {
 
-}
-
-function selectMany(model) {
-  return function () {
-    return new Promise((resolve, reject) => {
-      
-    });
-  }
 }
 
 function updateMany(model) {

@@ -1,7 +1,7 @@
 {
-  "name": "advanced-query-builder",
+  "name": "pg-orm",
   "version": "1.0.0",
-  "description": "A query builder for advanced relational sql query building",
+  "description": "An ORM made specifically for Postgres",
   "main": "index.js",
   "scripts": {
     "start": "set NODE_ENV=development&& nodemon --watch src/ --exec babel-node src",

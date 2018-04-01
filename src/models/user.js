@@ -1,5 +1,4 @@
 export default {
-  name: 'user',
   table: 'users',
   properties: {
     id: {

@@ -25,12 +25,19 @@ export default function(userDefinedModel, relatedTables) {
   const columnProperties = Object.entries(userDefinedProperties)
     .map(([prop, {column}]) => [column, prop]);
 
-  function mapTableRows(tableRows) {
+  const columnPropHash = columnProperties.reduce((hash, [col, prop]) => {
+    hash[col] = prop;
+    return hash;
+  }, {});
+
+  function mapResults({ rows, fields }) {
+    const props = fields.map(field => columnPropHash[field.name]);
     const entities = [];
-    for (var tableRow of tableRows) {
-      const entity = {};
-      for (var [column, prop] of columnProperties) {
-        entity[prop] = tableRow[column];
+    for (var row of rows) {
+      var entity = {};
+      for (var propIndex in props) {
+        var prop = props[propIndex];
+        entity[prop] = row[propIndex];
       }
       entities.push(entity);
     }
@@ -42,6 +49,6 @@ export default function(userDefinedModel, relatedTables) {
     table,
     properties: userDefinedProperties,
     relations,
-    mapTableRows,
+    mapResults
   }
 }
