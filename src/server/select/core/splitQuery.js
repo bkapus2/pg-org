@@ -12,8 +12,9 @@ export default function splitQuery(query, model) {
       rootQuery[key] = query[key];      
     } else if (relations[key]) {
       relationsQuery[key] = query[key];
-    } else if (operatorNames.includes(key)) {
-      // what do
+    // todo: figure out something for complex operator queries
+    // } else if (operatorNames.includes(key)) {
+    //   
     } else {
       throw Error(`Unknown property or relation '${key}'.`);
     }

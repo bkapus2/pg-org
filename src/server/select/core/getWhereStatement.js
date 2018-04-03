@@ -39,9 +39,9 @@ function queryMapper(properties) {
     const subqueries = [];
     for (var key in query) {
       const arg = query[key];
-      const propModel = properties[key]
+      const propModel = properties[key];
       if (!propModel) {
-        throw Error(`Property ${key} does not exist.`)
+        throw Error(`Property ${key} does not exist.`);
       }
       subqueries.push(typeHandlers[propModel.type](arg, propModel))
     }

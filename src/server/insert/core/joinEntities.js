@@ -1,13 +1,13 @@
-export default function joinEntities(rootEntities, joinMap, relatedEntities) {
+export default function joinEntities(parentEntities, joinMap, relatedEntities) {
   const updatedEntities = [];
-  const length = rootEntities.length;
+  const length = parentEntities.length;
   for (var i = 0; i < length; i++) {
-    const rootEntity = rootEntities[i];
+    const parentEntity = parentEntities[i];
     const childEntities = relatedEntities[i]; 
 
     const join = {};
     for (var [rootProp, childProp] of joinMap) {
-      join[childProp] = rootEntity[rootProp];
+      join[childProp] = parentEntity[rootProp];
     }
 
     for (var childEntity of childEntities) {

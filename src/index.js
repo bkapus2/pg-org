@@ -1,5 +1,6 @@
 import { Pool } from 'pg';
 import emailModel from './models/email';
+import noteModel from './models/note';
 import userModel from './models/user';
 import table from './server/table';
 import dbParams from '../dbParams.json';
@@ -21,7 +22,31 @@ async function sendQuery(query) {
 } 
 
 const emails = table(emailModel, sendQuery);
-const users = table(userModel, sendQuery, { emails });
+const notes = table(noteModel, sendQuery);
+const users = table(userModel, sendQuery, { emails, notes });
+
+// const createUser = () => users.insert([
+//   {
+//     firstName: 'Brian',
+//     lastName: 'Kapustka',
+//     username: 'brian.kapustka',
+//     emails: [
+//       {
+//         email: 'brian.kupi@gmail.com',
+//       },
+//     ],
+//     notes: [
+//       {
+//         title: 'note test - title',
+//         body: 'note test - body',
+//       },
+//     ],
+//   },
+// ])
+
+// for (var i = 0; i < 2000; i++) {
+//   createUser();
+// } 
 
 // users.insert([
 //   {
@@ -32,21 +57,27 @@ const users = table(userModel, sendQuery, { emails });
 //       {
 //         email: 'brian.kupi@gmail.com',
 //       },
+//     ],
+//     notes: [
 //       {
-//         email: 'brian.kupi@yahoo.com',
+//         title: 'note test - title',
+//         body: 'note test - body',
 //       },
 //     ],
 //   },
 //   {
-//     firstName: 'Another',
-//     lastName: 'User',
-//     username: 'another.user',
+//     firstName: 'Brian',
+//     lastName: 'Kapustka',
+//     username: 'brian.kapustka',
 //     emails: [
 //       {
-//         email: 'another.user@gmail.com',
+//         email: 'brian.kupi@gmail.com',
 //       },
+//     ],
+//     notes: [
 //       {
-//         email: 'another.user@yahoo.com',
+//         title: 'note test - title',
+//         body: 'note test - body',
 //       },
 //     ],
 //   },
@@ -54,11 +85,22 @@ const users = table(userModel, sendQuery, { emails });
 //   console.log(JSON.stringify(value, null, '  '))
 // }).catch(console.error);
 
+// console.time('select time');
+// users.select({
+//   // emails: {
+//   //   email: 'brian.kupi@gmail.com',
+//   // }
+//   id: 1000,
+// }).then(value => {
+//   console.log(JSON.stringify(value, null, '  '));
+//   console.timeEnd('select time');
+// }).catch(console.error);
+
+console.time('select time');
 users.select({
-  firstName: ['Brian', 'Another'],
-  emails: {
-    email: ['brian.kupi@gmail.com', 'another.user@gmail.com'],
-  }
+  firstName: 'Brian',
 }).then(value => {
-  console.log(JSON.stringify(value, null, '  '))
+  console.log(value.length);
+  // console.log(JSON.stringify(value, null, '  '));
+  console.timeEnd('select time');
 }).catch(console.error);

@@ -9,7 +9,7 @@ export default function selectProperties({ query, model, queryHandler, selectPro
       SELECT${distinct ? ' DISTINCT' : '' } ${selectProps.join(', ')}
       FROM ${table}
       ${ where ? 'WHERE ' + where : '' };`;
-    console.log(text);
+    // console.log(text);
     queryHandler({ text, rowMode: 'array' })
       .then(results => mode === 'object' ? mapResults(results) : results.rows)
       .then(resolve)

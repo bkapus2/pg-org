@@ -1,4 +1,5 @@
 export default {
+  name: 'user',
   table: 'users',
   properties: {
     id: {
@@ -25,7 +26,12 @@ export default {
       join: {
         id: 'userId',
       },
-      model: 'email',
+    },
+    notes: {
+      type: 'one-to-many',
+      join: {
+        id: 'userId',
+      },
     },
   },
 };

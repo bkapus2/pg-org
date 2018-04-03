@@ -1,9 +1,9 @@
 export default {
-  name: 'email',
-  table: 'emails',
+  name: 'note',
+  table: 'notes',
   properties: {
     id: {
-      column: 'email_id',
+      column: 'note_id',
       type: 'integer',
       primaryKey: true,
     },
@@ -11,8 +11,12 @@ export default {
       column: 'user_id',
       type: 'integer',
     },
-    email: {
-      column: 'email_address',
+    title: {
+      column: 'title',
+      type: 'text',
+    },
+    body: {
+      column: 'body',
       type: 'text',
     },
   },
