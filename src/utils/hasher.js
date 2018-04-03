@@ -12,13 +12,15 @@ export default function hasher(options={}) {
   const hvLen = hashValues.length;
 
   function getNext(index) {
-    const remainder = index % hvLen;
-    const power = ~~(index / hvLen); // ~~ is faster than Math.floor
-    if (power > 0) {
-      return getNext(power-1) + hashValues[remainder];
-    } else {
-      return hashValues[remainder];
-    }
+    let remainder = 0;
+    let power = index;
+    let hash = '';
+    do {
+      remainder = power % hvLen;
+      power = ~~(power / hvLen); // ~~ is faster than Math.floor
+      hash = hashValues[remainder] + hash;
+    } while (power > 0);
+    return hash;
   }
 
   function getHashValue(key) {

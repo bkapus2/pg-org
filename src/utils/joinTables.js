@@ -17,6 +17,7 @@ export default function joinTables(options) {
   const joins = joinMap.map(joinMapper);
   const parentHash = new Map();
 
+  console.time('creating hashes');
   for (var parent of parents) {
     const hashedValues = [];
     for (var join of joins) {
@@ -24,13 +25,15 @@ export default function joinTables(options) {
       const hasher = join[2];
       hashedValues.push(hasher(parent[parentKey]));
     }
-    const parentHashKey = hashedValues.join(JOIN_STRING);
-    if (parentHash.has(parentHashKey)) {
+    const hashKey = hashedValues.join(JOIN_STRING);
+    if (parentHash.has(hashKey)) {
       throw Error('parents are not unique');
     }
-    parentHash.set(parentHashKey, parent);
+    parentHash.set(hashKey, parent);
   }
+  console.timeEnd('creating hashes');
 
+  console.time('linking rows');
   for (var child of children) {
     const hashedValues = [];
     for (var join of joins) {
@@ -42,4 +45,5 @@ export default function joinTables(options) {
     const parent = parentHash.get(hashKey);
     joinRows(parent, child);
   }
+  console.timeEnd('linking rows');
 }

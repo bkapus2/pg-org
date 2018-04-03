@@ -98,7 +98,8 @@ const users = table(userModel, sendQuery, { emails, notes });
 
 console.time('select time');
 users.select({
-  firstName: 'Brian',
+  // id: [1000, 1001, 1002],
+  firstName: ['Brian']
 }).then(value => {
   console.log(value.length);
   // console.log(JSON.stringify(value, null, '  '));
