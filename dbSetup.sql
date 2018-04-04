@@ -10,3 +10,10 @@ CREATE TABLE emails (
 	user_id INTEGER REFERENCES users,
 	email_address TEXT NOT NULL
 );
+
+CREATE TABLE notes (
+	note_id SERIAL PRIMARY KEY,
+	user_id INTEGER REFERENCES users,
+	title TEXT NOT NULL,
+	body TEXT,
+);

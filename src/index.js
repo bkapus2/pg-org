@@ -1,4 +1,4 @@
-import { Pool } from 'pg';
+import { Pool, } from 'pg';
 import emailModel from './models/email';
 import noteModel from './models/note';
 import userModel from './models/user';
@@ -7,9 +7,9 @@ import dbParams from '../dbParams.json';
 
 const pool = new Pool(dbParams);
 
-pool.on('error', (err, client) => {
-  console.error('Unexpected error on idle client', err)
-  process.exit(-1)
+pool.on('error', (err) => {
+  console.error('Unexpected error on idle client', err);
+  process.exit(-1);
 });
 
 async function sendQuery(query) {
@@ -23,7 +23,7 @@ async function sendQuery(query) {
 
 const emails = table(emailModel, sendQuery);
 const notes = table(noteModel, sendQuery);
-const users = table(userModel, sendQuery, { emails, notes });
+const users = table(userModel, sendQuery, { emails, notes, });
 
 // const createUser = () => users.insert([
 //   {
@@ -60,24 +60,27 @@ const users = table(userModel, sendQuery, { emails, notes });
 //     ],
 //     notes: [
 //       {
-//         title: 'note test - title',
-//         body: 'note test - body',
+//         title: 'Created user',
+//         body: 'creating some test records',
 //       },
 //     ],
 //   },
 //   {
-//     firstName: 'Brian',
-//     lastName: 'Kapustka',
-//     username: 'brian.kapustka',
+//     firstName: 'Another',
+//     lastName: 'User',
+//     username: 'another.user',
 //     emails: [
 //       {
-//         email: 'brian.kupi@gmail.com',
+//         email: 'another.user@gmail.com',
+//       },
+//       {
+//         email: 'another.user@yahoo.com',
 //       },
 //     ],
 //     notes: [
 //       {
-//         title: 'note test - title',
-//         body: 'note test - body',
+//         title: 'Created user',
+//         body: 'creating some test records',
 //       },
 //     ],
 //   },
@@ -85,23 +88,20 @@ const users = table(userModel, sendQuery, { emails, notes });
 //   console.log(JSON.stringify(value, null, '  '))
 // }).catch(console.error);
 
+console.time('select time');
+users.select({})
+  .then(value => {
+    console.log(JSON.stringify(value, null, '  '));
+    console.timeEnd('select time');
+  })
+  .catch(console.error);
+
 // console.time('select time');
 // users.select({
-//   // emails: {
-//   //   email: 'brian.kupi@gmail.com',
-//   // }
-//   id: 1000,
+//   // id: [1000, 1001, 1002],
+//   firstName: ['Brian']
 // }).then(value => {
-//   console.log(JSON.stringify(value, null, '  '));
+//   console.log(value.length);
+//   // console.log(JSON.stringify(value, null, '  '));
 //   console.timeEnd('select time');
 // }).catch(console.error);
-
-console.time('select time');
-users.select({
-  // id: [1000, 1001, 1002],
-  firstName: ['Brian']
-}).then(value => {
-  console.log(value.length);
-  // console.log(JSON.stringify(value, null, '  '));
-  console.timeEnd('select time');
-}).catch(console.error);

@@ -6,7 +6,8 @@
   "scripts": {
     "start": "set NODE_ENV=development&& nodemon --watch src/ --exec babel-node src",
     "test": "set NODE_ENV=development&& nodemon --watch . --exec \"mocha --require babel-register **/*.spec.js\"",
-    "build": "babel lib -d dist --presets es2015,stage-2"
+    "build": "babel lib -d dist --presets es2015,stage-2",
+    "lintFix": "./node_modules/.bin/eslint --fix src/*"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "chai-spies": "^1.0.0",
+    "eslint": "^4.19.1",
     "mocha": "^5.0.4",
     "nodemon": "^1.17.1",
     "pg": "^7.4.1",
