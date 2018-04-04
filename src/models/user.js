@@ -1,6 +1,6 @@
 export default {
   name: 'user',
-  table: 'users',
+  tableName: 'users',
   properties: {
     id: {
       column: 'user_id',

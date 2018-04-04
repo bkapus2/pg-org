@@ -1,4 +1,4 @@
-import table from './table';
+import collection from './collection';
 import chai, { expect } from 'chai';
 import spies from 'chai-spies';
 chai.use(spies);
@@ -6,18 +6,18 @@ chai.use(spies);
 import userModel from './../models/user.js';
 import emailModel from './../models/email.js';
 
-describe('table', function() {
+describe('collection', function() {
   
   it('should be a function', function() {
-    expect(table).to.be.a('function');
+    expect(collection).to.be.a('function');
   });
 
   const queryHandler = value => new Promise((resolve, reject) => {
     console.log(value);
     resolve([]);
   });
-  const emails = table(emailModel, queryHandler);
-  const users = table(userModel, queryHandler, { emails: emails });
+  const emails = collection(emailModel, queryHandler);
+  const users = collection(userModel, queryHandler, { emails: emails });
   console.log(emails);
   const spy = chai.spy();
 

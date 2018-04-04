@@ -1,6 +1,6 @@
 export default {
   name: 'email',
-  table: 'emails',
+  tableName: 'emails',
   properties: {
     id: {
       column: 'email_id',

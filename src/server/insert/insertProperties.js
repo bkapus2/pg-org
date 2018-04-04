@@ -7,19 +7,19 @@ export default function insertProperties({ model, entities, queryHandler }) {
   if (!entities.length) {
     return Promise.resolve([]);
   }
-  const { table, properties: propModels, mapResults } = model;
+  const { tableName, properties: propModels, objectMap } = model;
   return new Promise((resolve, reject) => {
     const insertProps = getInsertProps(propModels);
     const insertValues = getInsertValues(propModels, insertProps, entities);
     const insertColumns = getInsertColumns(propModels, insertProps);
     const returnColumns = getReturnColumns(propModels);
     const text = `
-      INSERT INTO ${table} (${insertColumns.join(', ')})
+      INSERT INTO ${tableName} (${insertColumns.join(', ')})
       VALUES ${insertValues.map(row => '(' + row.join(', ') + ')').join(', ')}
       RETURNING ${returnColumns.join(', ')};`;
     console.log(text);
     queryHandler({ text, rowMode: 'array' })
-      .then(mapResults)
+      .then(objectMap)
       .then(resolve)
       .catch(reject);
   });

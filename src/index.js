@@ -2,7 +2,7 @@ import { Pool, } from 'pg';
 import emailModel from './models/email';
 import noteModel from './models/note';
 import userModel from './models/user';
-import table from './server/table';
+import collection from './server/collection';
 import dbParams from '../dbParams.json';
 
 const pool = new Pool(dbParams);
@@ -21,9 +21,9 @@ async function sendQuery(query) {
   }
 } 
 
-const emails = table(emailModel, sendQuery);
-const notes = table(noteModel, sendQuery);
-const users = table(userModel, sendQuery, { emails, notes, });
+const emails = collection(emailModel, sendQuery);
+const notes = collection(noteModel, sendQuery);
+const users = collection(userModel, sendQuery, { emails, notes, });
 
 // const createUser = () => users.insert([
 //   {
@@ -89,8 +89,14 @@ const users = table(userModel, sendQuery, { emails, notes, });
 // }).catch(console.error);
 
 console.time('select time');
-users.select({})
+users.select({
+  emails: {
+    id: 1000,
+    email: 'brian.kupi@gmail.com'
+  }
+})
   .then(value => {
+    console.log(value.length);
     console.log(JSON.stringify(value, null, '  '));
     console.timeEnd('select time');
   })

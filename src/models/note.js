@@ -1,6 +1,6 @@
 export default {
   name: 'note',
-  table: 'notes',
+  tableName: 'notes',
   properties: {
     id: {
       column: 'note_id',

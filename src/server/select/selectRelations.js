@@ -1,10 +1,10 @@
 import joinTable from './../../utils/joinTables';
 
 function oneToManySingleKeyJoin({ parents, relationKey, relationModel }) {
-  const { joinMap, table } = relationModel;
+  const { joinMap, collection } = relationModel;
   const [parentKey, childKey] = joinMap[0];
   const ids = parents.map(entity => entity[parentKey]);
-  return table.select({ [childKey]: ids })
+  return collection.select({ [childKey]: ids })
     .then(children => {
       console.time(relationKey +' join time');
       const hash = {};

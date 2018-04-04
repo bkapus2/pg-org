@@ -1,11 +1,9 @@
-function relationsReducer() {
-  relations.relationName;
-}
+import Table from './../classes/Table';
 
-export default function(userDefinedModel, relatedTables) {
+export default function(userDefinedModel, relatedCollections) {
   const {
     name,
-    table,
+    tableName,
     properties: userDefinedProperties,
     relations: userDefinedRelations = {},
   } = userDefinedModel;
@@ -13,13 +11,13 @@ export default function(userDefinedModel, relatedTables) {
   const relations = Object.entries(userDefinedRelations)
     .reduce((relations, [relationName, relationModel]) => {
       const { join } = relationModel;
-      const table = relatedTables[relationName];
-      if (!table) {
-        throw Error(`related table '${relationName}' not passed to '${name}' model initializer`);
+      const collection = relatedCollections[relationName];
+      if (!collection) {
+        throw Error(`related collection '${relationName}' not passed to '${name}' model initializer`);
       }
       const joinMap = Object.entries(join);
       relations[relationName] = Object.assign({}, relationModel, {
-        table,
+        collection,
         joinMap, 
       });
       return relations;
@@ -33,7 +31,7 @@ export default function(userDefinedModel, relatedTables) {
     return hash;
   }, {});
 
-  function mapResults({ rows, fields }) {
+  function objectMap({ rows, fields }) {
     console.time('array to object map');
     const props = fields.map(field => columnPropHash[field.name]);
     const entities = [];
@@ -49,11 +47,20 @@ export default function(userDefinedModel, relatedTables) {
     return entities;
   }
 
+  function arrayMap({ rows, fields }) {
+    return new Table({
+      name,
+      columns: fields.map(({name}) => columnPropHash[name]),
+      rows,
+    });
+  }
+
   return {
     name,
-    table,
+    tableName,
     properties: userDefinedProperties,
     relations,
-    mapResults,
+    objectMap,
+    arrayMap,
   };
 }
