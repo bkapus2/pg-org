@@ -1,8 +1,8 @@
 import getWhereStatement from './core/getWhereStatement';
 
-export default function selectProperties({ query, model, queryHandler, selectProps, options, }) {
-  const { mode, distinct, } = options;
-  const { table, properties: propModels, mapResults, } = model;
+export default function selectProperties({ query, model, queryHandler, selectProps, options }) {
+  const { mode, distinct } = options;
+  const { table, properties: propModels, mapResults } = model;
   return new Promise((resolve, reject) => {
     const where = getWhereStatement(query, propModels);
     const text = `
@@ -10,7 +10,7 @@ export default function selectProperties({ query, model, queryHandler, selectPro
       FROM ${table}
       ${ where ? 'WHERE ' + where : '' };`;
     // console.log(text);
-    queryHandler({ text, rowMode: 'array', })
+    queryHandler({ text, rowMode: 'array' })
       .then(results => mode === 'object' ? mapResults(results) : results.rows)
       .then(resolve)
       .catch(reject);

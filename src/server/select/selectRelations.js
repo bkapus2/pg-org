@@ -1,10 +1,10 @@
 import joinTable from './../../utils/joinTables';
 
-function oneToManySingleKeyJoin({ parents, relationKey, relationModel, }) {
-  const { joinMap, table, } = relationModel;
-  const [parentKey, childKey,] = joinMap[0];
+function oneToManySingleKeyJoin({ parents, relationKey, relationModel }) {
+  const { joinMap, table } = relationModel;
+  const [parentKey, childKey] = joinMap[0];
   const ids = parents.map(entity => entity[parentKey]);
-  return table.select({ [childKey]: ids, })
+  return table.select({ [childKey]: ids })
     .then(children => {
       console.time(relationKey +' join time');
       const hash = {};
@@ -31,14 +31,14 @@ function oneToManySingleKeyJoin({ parents, relationKey, relationModel, }) {
     });
 }
 
-export default function selectRelations({ model, parents, }) {
+export default function selectRelations({ model, parents }) {
   return new Promise((resolve, reject) => {
-    const { relations, name, } = model;
-    const promises = Object.entries(relations).map(([relationKey, relationModel,]) => {
-      const { type, joinMap, } = relationModel;
+    const { relations, name } = model;
+    const promises = Object.entries(relations).map(([relationKey, relationModel]) => {
+      const { type, joinMap } = relationModel;
       if (type === 'one-to-many') {
         if (joinMap.length === 1) {
-          return oneToManySingleKeyJoin({ parents, relationKey, relationModel, });
+          return oneToManySingleKeyJoin({ parents, relationKey, relationModel });
         } else {
           throw Error('todo: implement multi key joins');
         }

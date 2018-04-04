@@ -3,7 +3,7 @@ import integer from './../../convert/integer';
 
 const typeHandlers = {
   text(arg, propModel) {
-    const { column, } = propModel;
+    const { column } = propModel;
     if (arg === null) {
       return `${ column } IS NULL`;
     } else if (Array.isArray(arg)) {
@@ -16,7 +16,7 @@ const typeHandlers = {
     }
   },
   integer(arg, propModel) {
-    const { column, } = propModel;
+    const { column } = propModel;
     if (arg === null) {
       return `${ column } IS NULL`;
     } else if (Array.isArray(arg)) {

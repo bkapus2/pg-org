@@ -1,5 +1,5 @@
 import table from './table';
-import chai, { expect, } from 'chai';
+import chai, { expect } from 'chai';
 import spies from 'chai-spies';
 chai.use(spies);
 
@@ -17,7 +17,7 @@ describe('table', function() {
     resolve([]);
   });
   const emails = table(emailModel, queryHandler);
-  const users = table(userModel, queryHandler, { emails: emails, });
+  const users = table(userModel, queryHandler, { emails: emails });
   console.log(emails);
   const spy = chai.spy();
 

@@ -6,7 +6,7 @@ export default function joinEntities(parentEntities, joinMap, relatedEntities) {
     const childEntities = relatedEntities[i]; 
 
     const join = {};
-    for (var [rootProp, childProp,] of joinMap) {
+    for (var [rootProp, childProp] of joinMap) {
       join[childProp] = parentEntity[rootProp];
     }
 

@@ -3,7 +3,7 @@ import getHasher from './hasher';
 const JOIN_STRING = '.';
 
 function joinMapper(joinMapItem) {
-  return [joinMapItem[0], joinMapItem[1], getHasher({ omit: [JOIN_STRING,], }),];
+  return [joinMapItem[0], joinMapItem[1], getHasher({ omit: [JOIN_STRING] })];
 }
 
 export default function joinTables(options) {

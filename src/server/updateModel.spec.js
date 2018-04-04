@@ -1,5 +1,5 @@
 import updateModel from './updateModel';
-import chai, { expect, } from 'chai';
+import chai, { expect } from 'chai';
 import userModel from './../models/user';
 import emailModel from './../models/email';
 
