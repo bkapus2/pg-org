@@ -22,9 +22,9 @@ function deleteMany(model) {
   };
 }
 
-export default function collection(_model, queryHandler, relatedCollections = {}) {
+export default function table(_model, queryHandler, relatedTables = {}) {
   validateModel(_model);
-  const model = updateModel(_model, relatedCollections);
+  const model = updateModel(_model, relatedTables);
   return Object.freeze({
     get name() { return model.name; },
     insert: insertMany(model, queryHandler),

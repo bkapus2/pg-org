@@ -1,6 +1,6 @@
-import Table from './../classes/Table';
+import ResultsTable from './../classes/ResultsTable';
 
-export default function(userDefinedModel, relatedCollections) {
+export default function(userDefinedModel, relatedTables) {
   const {
     name,
     tableName,
@@ -11,13 +11,13 @@ export default function(userDefinedModel, relatedCollections) {
   const relations = Object.entries(userDefinedRelations)
     .reduce((relations, [relationName, relationModel]) => {
       const { join } = relationModel;
-      const collection = relatedCollections[relationName];
-      if (!collection) {
-        throw Error(`related collection '${relationName}' not passed to '${name}' model initializer`);
+      const table = relatedTables[relationName];
+      if (!table) {
+        throw Error(`related table '${relationName}' not passed to '${name}' model initializer`);
       }
       const joinMap = Object.entries(join);
       relations[relationName] = Object.assign({}, relationModel, {
-        collection,
+        table,
         joinMap, 
       });
       return relations;
@@ -48,7 +48,7 @@ export default function(userDefinedModel, relatedCollections) {
   }
 
   function arrayMap({ rows, fields }) {
-    return new Table({
+    return new ResultsTable({
       name,
       columns: fields.map(({name}) => columnPropHash[name]),
       rows,

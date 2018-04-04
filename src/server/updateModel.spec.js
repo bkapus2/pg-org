@@ -15,7 +15,7 @@ describe('updateModel', function() {
   });
 
   describe('error conditions', function() {
-    it('should throw an error when missing a collection relation used in a model', function() {
+    it('should throw an error when missing a table relation used in a model', function() {
       expect(() => updateModel(userModel, {})).to.throw(Error);
     });
   });

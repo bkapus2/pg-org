@@ -1,8 +1,8 @@
-import { Pool, } from 'pg';
+import { Pool } from 'pg';
 import emailModel from './models/email';
 import noteModel from './models/note';
 import userModel from './models/user';
-import collection from './server/collection';
+import table from './server/table';
 import dbParams from '../dbParams.json';
 
 const pool = new Pool(dbParams);
@@ -21,9 +21,9 @@ async function sendQuery(query) {
   }
 } 
 
-const emails = collection(emailModel, sendQuery);
-const notes = collection(noteModel, sendQuery);
-const users = collection(userModel, sendQuery, { emails, notes, });
+const emails = table(emailModel, sendQuery);
+const notes = table(noteModel, sendQuery);
+const users = table(userModel, sendQuery, { emails, notes });
 
 // const createUser = () => users.insert([
 //   {
@@ -92,8 +92,8 @@ console.time('select time');
 users.select({
   emails: {
     id: 1000,
-    email: 'brian.kupi@gmail.com'
-  }
+    email: 'brian.kupi@gmail.com',
+  },
 })
   .then(value => {
     console.log(value.length);
