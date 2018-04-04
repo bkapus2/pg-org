@@ -17,8 +17,8 @@ export default {
     },
     username: {
       column: 'username',
-      type: 'text'
-    }
+      type: 'text',
+    },
   },
   relations: {
     emails: {

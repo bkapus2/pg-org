@@ -5,7 +5,7 @@ export default function integer(value, model) {
     if (model.defaultValue) {
       return model.defaultValue;
     } else {
-      return 'NULL'
+      return 'NULL';
     }
   } else {
     if (Number.isInteger(value)) {

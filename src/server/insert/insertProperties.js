@@ -3,11 +3,11 @@ import getInsertValues from './core/getInsertValues';
 import getInsertColumns from './core/getInsertColumns';
 import getReturnColumns from './../core/getReturnColumns';
 
-export default function insertProperties({ model, entities, queryHandler }) {
+export default function insertProperties({ model, entities, queryHandler, }) {
   if (!entities.length) {
     return Promise.resolve([]);
   }
-  const { table, properties: propModels, mapResults } = model;
+  const { table, properties: propModels, mapResults, } = model;
   return new Promise((resolve, reject) => {
     const insertProps = getInsertProps(propModels);
     const insertValues = getInsertValues(propModels, insertProps, entities);
@@ -18,7 +18,7 @@ export default function insertProperties({ model, entities, queryHandler }) {
       VALUES ${insertValues.map(row => '(' + row.join(', ') + ')').join(', ')}
       RETURNING ${returnColumns.join(', ')};`;
     console.log(text);
-    queryHandler({ text, rowMode: 'array' })
+    queryHandler({ text, rowMode: 'array', })
       .then(mapResults)
       .then(resolve)
       .catch(reject);

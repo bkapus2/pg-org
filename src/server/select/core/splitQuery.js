@@ -2,7 +2,7 @@ import operators from './../../core/operators';
 const operatorNames = Object.keys(operators);
 
 export default function splitQuery(query, model) {
-  const { properties, relations } = model;
+  const { properties, relations, } = model;
 
   const rootQuery = {};
   const relationsQuery = {};
@@ -20,5 +20,5 @@ export default function splitQuery(query, model) {
     }
   }
 
-  return [rootQuery, relationsQuery];
+  return [rootQuery, relationsQuery,];
 }

@@ -1,10 +1,10 @@
 const allStringChars = [];
 for (let i = 32; i < 126; i++) {
-  allStringChars.push(String.fromCharCode(i))
+  allStringChars.push(String.fromCharCode(i));
 }
 
 export default function hasher(options={}) {
-  const { omit = [] } = options;
+  const { omit = [], } = options;
   const hashMap = new Map();
   const hashValues = omit.length
     ? allStringChars.filter(str => !omit.includes(str))

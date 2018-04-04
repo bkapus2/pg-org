@@ -5,7 +5,7 @@ export default function text(value, model) {
     if (model.defaultValue) {
       return model.defaultValue;
     } else {
-      return 'NULL'
+      return 'NULL';
     }
   } else {
     if (typeof value === 'string') {

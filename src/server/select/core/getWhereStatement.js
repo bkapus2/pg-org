@@ -3,7 +3,7 @@ import integer from './../../convert/integer';
 
 const typeHandlers = {
   text(arg, propModel) {
-    const { column } = propModel;
+    const { column, } = propModel;
     if (arg === null) {
       return `${ column } IS NULL`;
     } else if (Array.isArray(arg)) {
@@ -16,7 +16,7 @@ const typeHandlers = {
     }
   },
   integer(arg, propModel) {
-    const { column } = propModel;
+    const { column, } = propModel;
     if (arg === null) {
       return `${ column } IS NULL`;
     } else if (Array.isArray(arg)) {
@@ -28,7 +28,7 @@ const typeHandlers = {
       return `${ column } = ${ integer(arg) }`;
     }
   },
-}
+};
 
 function notEmpty(item) {
   return Boolean(Object.keys(item).length);
@@ -43,10 +43,10 @@ function queryMapper(properties) {
       if (!propModel) {
         throw Error(`Property ${key} does not exist.`);
       }
-      subqueries.push(typeHandlers[propModel.type](arg, propModel))
+      subqueries.push(typeHandlers[propModel.type](arg, propModel));
     }
     return '(' + subqueries.join(' AND ') + ')';
-  }
+  };
 }
 
 export default function getWhereStatement(queries, properties) {

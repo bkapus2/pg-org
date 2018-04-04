@@ -4,7 +4,7 @@ export default function mergeOneToManyRelations(parentEntities, key, joinMap, ch
   const childEntitiesClone = childEntities.slice();
 
   function canJoin(parentEntity, childEntity) {
-    for (var [parentProp, childProp] of joinMap) {
+    for (var [parentProp, childProp,] of joinMap) {
       if (parentEntity[parentProp] !== childEntity[childProp]) {
         return false;
       }
