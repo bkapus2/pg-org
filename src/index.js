@@ -13,6 +13,7 @@ pool.on('error', (err) => {
 });
 
 async function sendQuery(query) {
+  console.log(query.text);
   const client = await pool.connect();
   try {
     return await client.query(query);
@@ -88,19 +89,19 @@ const users = table(userModel, sendQuery, { emails, notes });
 //   console.log(JSON.stringify(value, null, '  '))
 // }).catch(console.error);
 
-console.time('select time');
-users.select({
-  emails: {
-    id: 1000,
-    email: 'brian.kupi@gmail.com',
-  },
-})
-  .then(value => {
-    console.log(value.length);
-    console.log(JSON.stringify(value, null, '  '));
-    console.timeEnd('select time');
-  })
-  .catch(console.error);
+// console.time('select time');
+// users.select({
+//   emails: {
+//     id: 1000,
+//     // email: 'brian.kupi@gmail.com',
+//   },
+// })
+//   .then(value => {
+//     console.log(value.length);
+//     console.log(JSON.stringify(value, null, '  '));
+//     console.timeEnd('select time');
+//   })
+//   .catch(console.error);
 
 // console.time('select time');
 // users.select({
@@ -111,3 +112,16 @@ users.select({
 //   // console.log(JSON.stringify(value, null, '  '));
 //   console.timeEnd('select time');
 // }).catch(console.error);
+
+console.time('update time');
+users.update({
+  emails: {
+    id: 1000,
+    // email: 'brian.kupi@gmail.com',
+  },
+})
+  .then(value => {
+    console.log(value);
+    console.timeEnd('update time');
+  })
+  .catch(console.error);
