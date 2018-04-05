@@ -31,6 +31,11 @@ export default function(userDefinedModel, relatedTables) {
     return hash;
   }, {});
 
+  const propColumnHash = columnProperties.reduce((hash, [col, prop]) => {
+    hash[prop] = col;
+    return hash;
+  }, {});
+
   function objectMap({ rows, fields }) {
     console.time('array to object map');
     const props = fields.map(field => columnPropHash[field.name]);
@@ -55,6 +60,16 @@ export default function(userDefinedModel, relatedTables) {
     });
   }
 
+  function mapPropsToColumns(props) {
+    return props.map(prop => {
+      const col = propColumnHash[prop];
+      if (!col) {
+        throw Error(`Property '${prop}' does not exist for ${name}`);
+      }
+      return col;
+    });
+  }
+
   return {
     name,
     tableName,
@@ -62,5 +77,6 @@ export default function(userDefinedModel, relatedTables) {
     relations,
     objectMap,
     arrayMap,
+    mapPropsToColumns,
   };
 }

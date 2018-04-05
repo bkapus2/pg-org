@@ -27,7 +27,7 @@ function getSetters(update, properties) {
   return setters;
 }
 
-export default function updateStatement(params, properties) {
+export default function updateStatement(params, model) {
   const {
     update = required('update'),
     table = required('table'),
@@ -39,22 +39,21 @@ export default function updateStatement(params, properties) {
     throw Error('Nothing to update');
   }
 
+  const { properties, mapPropsToColumns } = model;
+
   const statementParts = [];
   statementParts.push(`UPDATE ${table}`);
 
   const setters = getSetters(update, properties);
-  statementParts.push(`SET ${setters.join(' ')}`);
+  statementParts.push(`SET ${setters.join(', ')}`);
 
   if (where) {
     statementParts.push(`WHERE ${getWhereStatement([where], properties)}`);
   }
 
   if (returning) {
-    if (Array.isArray(returning)) {
-      statementParts.push(`RETURNING ${returning.join(', ')}`);
-    } else {
-      statementParts.push(`RETURNING ${returning}`);
-    }
+    const returnColumns = mapPropsToColumns(returning);
+    statementParts.push(`RETURNING ${returnColumns.join(', ')}`);
   }
 
   return statementParts.join('\n')+';';
