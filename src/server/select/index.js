@@ -1,10 +1,10 @@
-import selectProperties from './selectProperties';
-import selectRelations from './selectRelations';
 import parseSelectArgs from './core/parseSelectArgs';
 import resolveRelationQueries from './core/resolveRelationQueries';
+import selectProperties from './selectProperties';
+import selectRelations from './selectRelations';
 
 export default function selectMany(model, queryHandler) {
-  const { relations, name } = model;
+  const { relations } = model;
   return function (...args) {
     return new Promise((resolve, reject) => {
       const [ selectProps, rootQuery, relationsQuery, options ] = parseSelectArgs({ args, model });

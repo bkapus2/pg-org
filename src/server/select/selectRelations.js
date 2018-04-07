@@ -33,7 +33,7 @@ function oneToManySingleKeyJoin({ parents, relationKey, relationModel }) {
 
 export default function selectRelations({ model, parents }) {
   return new Promise((resolve, reject) => {
-    const { relations, name } = model;
+    const { relations } = model;
     const promises = Object.entries(relations).map(([relationKey, relationModel]) => {
       const { type, joinMap } = relationModel;
       if (type === 'one-to-many') {
