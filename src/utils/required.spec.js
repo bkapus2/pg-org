@@ -1,9 +1,9 @@
 /* global it, describe */
 import { expect } from 'chai';
-import required from '@/utils/required';
+import required from './required';
 
 export default function() {
-  describe('utils/required', () => {
+  describe(__dirname.split('src')[1]+'\\required', () => {
     const param = 'param';
 
     it('should be a function', () => {

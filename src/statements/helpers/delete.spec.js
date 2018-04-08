@@ -1,9 +1,9 @@
 /* global it, describe */
 import { expect } from 'chai';
-import del from '@/statements/helpers/delete';
+import del from './delete';
 
 export default function() {
-  describe('statements/helpers/delete', ()=>{
+  describe(__dirname.split('src')[1]+'\\delete', ()=>{
     const table = 'table_name';
 
     it('should be a function', () => {

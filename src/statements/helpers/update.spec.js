@@ -1,9 +1,9 @@
 /* global it, describe */
 import { expect } from 'chai';
-import update from '@/statements/helpers/update';
+import update from './update';
 
 export default function() {
-  describe('statements/helpers/update', ()=>{
+  describe(__dirname.split('src')[1]+'\\update', ()=>{
     const rightNow = new Date()+'';
     const table = 'table_name';
     const values = {

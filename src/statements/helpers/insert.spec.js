@@ -1,9 +1,9 @@
 /* global it, describe */
 import { expect } from 'chai';
-import insert from '@/statements/helpers/insert';
+import insert from './insert';
 
 export default function() {
-  describe('statements/helpers/insert', ()=>{
+  describe(__dirname.split('src')[1]+'\\insert', ()=>{
     const rightNow = new Date()+'';
     const table = 'table_name';
     const columns = ['col_a', 'col_b', 'col_c', 'col_d', 'col_e', 'col_f'];

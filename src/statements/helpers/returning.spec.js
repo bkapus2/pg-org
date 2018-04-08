@@ -1,9 +1,9 @@
 /* global it, describe */
 import { expect } from 'chai';
-import returning from '@/statements/helpers/returning';
+import returning from './returning';
 
 export default function() {
-  describe('statements/helpers/returning', ()=>{
+  describe(__dirname.split('src')[1]+'\\returning', ()=>{
     const columns = ['col_a', 'col_b'];
 
     it('should be a function', () => {
