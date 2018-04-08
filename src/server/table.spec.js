@@ -1,3 +1,4 @@
+/* global it, describe */
 import table from './table';
 import chai, { expect } from 'chai';
 import spies from 'chai-spies';
@@ -12,14 +13,13 @@ describe('table', function() {
     expect(table).to.be.a('function');
   });
 
-  const queryHandler = value => new Promise((resolve, reject) => {
+  const queryHandler = value => new Promise((resolve) => {
     console.log(value);
     resolve([]);
   });
   const emails = table(emailModel, queryHandler);
   const users = table(userModel, queryHandler, { emails: emails });
   console.log(emails);
-  const spy = chai.spy();
 
   it('should return an object', function() {
     expect(emails).to.be.an('object');

@@ -1,4 +1,4 @@
-import joinTable from './../../utils/joinTables';
+// import joinTable from './../../utils/joinTables';
 
 function oneToManySingleKeyJoin({ parents, relationKey, relationModel }) {
   const { joinMap, table } = relationModel;

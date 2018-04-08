@@ -13,6 +13,7 @@ export default function joinTables(options) {
     joinMap,
     joinRows,
   } = options;
+  let join = null;
 
   const joins = joinMap.map(joinMapper);
   const parentHash = new Map();
@@ -20,7 +21,7 @@ export default function joinTables(options) {
   console.time('creating hashes');
   for (var parent of parents) {
     const hashedValues = [];
-    for (var join of joins) {
+    for (join of joins) {
       const parentKey = join[0];
       const hasher = join[2];
       hashedValues.push(hasher(parent[parentKey]));
@@ -36,7 +37,7 @@ export default function joinTables(options) {
   console.time('linking rows');
   for (var child of children) {
     const hashedValues = [];
-    for (var join of joins) {
+    for (join of joins) {
       const childKey = join[1];
       const hasher = join[2];
       hashedValues.push(hasher(child[childKey]));

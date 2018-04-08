@@ -1,9 +1,9 @@
 import updateStatement from './../core/statements/updateStatement';
 
-export default function updateMany(model, queryHandler) {
+export default function updateMany(model) {
   const { tableName } = model;
-  return function (arg) {
-    return new Promise((resolve, reject) => {
+  return function () {
+    return new Promise((resolve) => {
       resolve(updateStatement({
         table: tableName,
         update: {

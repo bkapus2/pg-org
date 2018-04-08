@@ -1,5 +1,6 @@
+/* global it, describe */
 import updateModel from './updateModel';
-import chai, { expect } from 'chai';
+import { expect } from 'chai';
 import userModel from './../models/user';
 import emailModel from './../models/email';
 

@@ -28,3 +28,4 @@ build/Release
 node_modules
 
 dbParams.json
+package-lock.json

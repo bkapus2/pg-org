@@ -1,11 +1,10 @@
-export default function resolveRelationQueries({ relations, query, queryHandler }) {
+export default function resolveRelationQueries({ relations, query }) {
   return new Promise((resolve, reject) => {
     const promises = Object.entries(relations).reduce((promises, [relationkey, relationModel]) => {
       if (query[relationkey]) {
         const { table, joinMap } = relationModel;
-        const { name } = table;
-        const childProps = joinMap.map(([parentProp, childProp]) => childProp);
-        const parentProps = joinMap.map(([parentProp, childProp]) => parentProp);
+        const childProps = joinMap.map(entry => entry[1]);
+        const parentProps = joinMap.map(entry => entry[0]);
         const promise = table.select(childProps, query[relationkey], { mode: 'array', distinct: true })
           .then(childTable => {
             if(joinMap.length === 1) {

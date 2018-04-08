@@ -1,3 +1,3 @@
-export default function where(where) {
+export default function where() {
   
 }

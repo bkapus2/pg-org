@@ -3,20 +3,15 @@ import insertMany from './insert';
 import selectMany from './select';
 import updateMany from './update';
 
-function validateModel(model) {
-
-}
-
-function deleteMany(model) {
+function deleteMany() {
   return function () {
-    return new Promise((resolve, reject) => {
+    return new Promise(() => {
       
     });
   };
 }
 
 export default function table(_model, queryHandler, relatedTables = {}) {
-  validateModel(_model);
   const model = updateModel(_model, relatedTables);
   return Object.freeze({
     get name() { return model.name; },

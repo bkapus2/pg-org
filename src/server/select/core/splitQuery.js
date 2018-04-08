@@ -1,6 +1,3 @@
-import operators from './../../core/operators';
-const operatorNames = Object.keys(operators);
-
 export default function splitQuery(query, model) {
   const { properties, relations } = model;
 

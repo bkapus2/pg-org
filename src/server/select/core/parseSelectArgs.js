@@ -14,7 +14,7 @@ function parseOptions(options = {}) {
 }
 
 export default function parseSelectArgs({ args, model }) {
-  const { properties, relations } = model;
+  const { properties } = model;
   if (Array.isArray(args[0])) {
     const select = mapSelectProps(args[0], properties);
     const [rootQuery, relationsQuery] = splitQuery(args[1], model);
