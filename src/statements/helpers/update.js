@@ -21,7 +21,7 @@ function valueReducer(setters, [column, value]) {
 }
 
 function reduceValues(values) {
-  return Object.entries(values).reduce(valueReducer, []).join(', ');
+  return Object.entries(values).reduce(valueReducer, []);
 }
 
 export default function UPDATE(params) {
@@ -29,5 +29,5 @@ export default function UPDATE(params) {
     table=required('table'),
     values=required('values'),
   } = params;
-  return `UPDATE ${table} SET ${reduceValues(values)}`;
+  return `UPDATE\n\t${table}\nSET\n\t${reduceValues(values).join(',\n\t')}`;
 }

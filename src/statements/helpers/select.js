@@ -5,5 +5,5 @@ export default function select(params) {
     table=required('table'),
     columns=required('columns'),
   } = params;
-  return `SELECT ${columns.join(', ')} FROM ${table}`;
+  return `SELECT\n\t${columns.join(',\n\t')}\nFROM\n\t${table}`;
 }

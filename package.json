@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "set NODE_ENV=development&& nodemon --watch src/ --exec babel-node src",
-    "test": "set NODE_ENV=development&& nodemon --watch . --exec \"mocha --require babel-register",
+    "test": "set NODE_ENV=development&& nodemon --watch . --exec \"mocha --bail --require babel-register",
     "build": "babel lib -d dist --presets es2015,stage-2",
     "lintFix": "./node_modules/.bin/eslint --fix src/*/**"
   },

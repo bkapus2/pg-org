@@ -12,11 +12,11 @@ export default function() {
     });
     
     it('should require a table parameter', () => {
-      expect(() => select({ columns })).to.throw(Error);
+      expect(() => select({ columns })).to.throw(Error, '\'table\' is a required parameter');
     });
         
-    it('should require a values parameter', () => {
-      expect(() => select({ table })).to.throw(Error);
+    it('should require a columns parameter', () => {
+      expect(() => select({ table })).to.throw(Error, '\'columns\' is a required parameter');
     });
 
     it('should return a select statement', () => {
@@ -24,7 +24,7 @@ export default function() {
         table,
         columns,
       });
-      expect(value).to.be.equal('SELECT col_a, col_b FROM table_name');
+      expect(value).to.be.equal('SELECT\n\tcol_a,\n\tcol_b\nFROM\n\ttable_name');
     });
   });
 }
