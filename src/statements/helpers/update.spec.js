@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import update from './update';
 
 export default function() {
-  describe(__dirname.split('src\\')[1]+'\\update', ()=>{
+  describe(__dirname.split('src')[1]+'\\update', ()=>{
     const rightNow = new Date()+'';
     const table = 'table_name';
     const values = {
