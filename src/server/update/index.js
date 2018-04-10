@@ -1,19 +1,31 @@
 import updateStatement from './../core/statements/updateStatement';
+import updateClause from '@/statements/update';
+import whereClause from '@/statements/where';
+import returningClause from '@/statements/returning';
+
+function queryText(params) {
+  const { table, update: values, where, returnCols } = params;
+  return ([
+    updateClause({ table, values }),
+    whereClause({ where }),
+    returningClause({ columns: returnCols }),
+  ]).join('\n') + ';';
+}
 
 export default function updateMany(model) {
   const { tableName } = model;
   return function () {
     return new Promise((resolve) => {
-      resolve(updateStatement({
+
+      resolve(queryText({
         table: tableName,
         update: {
-          id: 1000,
-          firstName: 'Brian',
+          first_name: 'Brian',
         },
         where: {
           id: 1000,
         },
-        returning: ['id', 'firstName'],
+        returnCols: ['id', 'first_name'],
       }, model));
     });
   };

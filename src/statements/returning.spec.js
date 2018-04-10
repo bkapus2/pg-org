@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import returning from './returning';
 
 export default function() {
-  describe(__dirname.split('src')[1]+'\\returning', ()=>{
+  describe(__dirname.split('src\\')[1]+'\\returning', ()=>{
     const columns = ['col_a', 'col_b'];
 
     it('should be a function', () => {
