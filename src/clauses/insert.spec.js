@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import insert from './insert';
 
 export default function() {
-  describe(__dirname.split('src')[1]+'\\insert', ()=>{
+  describe(__dirname.split('src\\')[1]+'\\insert', ()=>{
     const rightNow = new Date()+'';
     const table = 'table_name';
     const columns = ['col_a', 'col_b', 'col_c', 'col_d', 'col_e', 'col_f'];
@@ -25,7 +25,7 @@ export default function() {
       expect(() => insert({ table, columns })).to.throw(Error, '\'rows\' is a required parameter');
     });
 
-    it('should return a insert statement', () => {
+    it('should return a insert clause', () => {
       const value = insert({
         table,
         columns,

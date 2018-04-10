@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import select from './select';
 
 export default function() {
-  describe(__dirname.split('src')[1]+'\\select', ()=>{
+  describe(__dirname.split('src\\')[1]+'\\select', ()=>{
     const table = 'table_name';
     const columns = ['col_a', 'col_b'];
 
@@ -19,7 +19,7 @@ export default function() {
       expect(() => select({ table })).to.throw(Error, '\'columns\' is a required parameter');
     });
 
-    it('should return a select statement', () => {
+    it('should return a select clause', () => {
       const value = select({
         table,
         columns,

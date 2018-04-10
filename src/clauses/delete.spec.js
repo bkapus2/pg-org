@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import del from './delete';
 
 export default function() {
-  describe(__dirname.split('src')[1]+'\\delete', ()=>{
+  describe(__dirname.split('src\\')[1]+'\\delete', ()=>{
     const table = 'table_name';
 
     it('should be a function', () => {
@@ -14,7 +14,7 @@ export default function() {
       expect(() => del({})).to.throw(Error, '\'table\' is a required parameter');
     });
 
-    it('should return a delete statement', () => {
+    it('should return a delete clause', () => {
       const value = del({ table });
       expect(value).to.be.equal(`DELETE FROM ${table}`);
     });
