@@ -1,9 +1,10 @@
 /* global it, describe */
 import { expect } from 'chai';
 import insert from './insert';
+import printFilePath from '@/utils/printFilePath';
 
 export default function() {
-  describe(__dirname.split('src\\')[1]+'\\insert', ()=>{
+  describe(printFilePath(__filename), ()=>{
     const rightNow = new Date()+'';
     const table = 'table_name';
     const columns = ['col_a', 'col_b', 'col_c', 'col_d', 'col_e', 'col_f'];

@@ -1,9 +1,10 @@
 /* global it, describe */
 import { expect } from 'chai';
 import update from './update';
+import printFilePath from '@/utils/printFilePath';
 
 export default function() {
-  describe(__dirname.split('src\\')[1]+'\\update', ()=>{
+  describe(printFilePath(__filename), ()=>{
     const rightNow = new Date()+'';
     const table = 'table_name';
     const values = {

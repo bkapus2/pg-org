@@ -2,9 +2,10 @@
 import normalizeText from '@/utils/normalizeText';
 import { expect } from 'chai';
 import whereClause from './where';
+import printFilePath from '@/utils/printFilePath';
 
 export default function() {
-  describe(__dirname.split('src\\')[1]+'\\where', () => {
+  describe(printFilePath(__filename), () => {
     it('should be a function', () => {
       expect(whereClause).to.be.a('function');
     });

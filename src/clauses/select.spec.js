@@ -1,9 +1,10 @@
 /* global it, describe */
 import { expect } from 'chai';
 import select from './select';
+import printFilePath from '@/utils/printFilePath';
 
 export default function() {
-  describe(__dirname.split('src\\')[1]+'\\select', ()=>{
+  describe(printFilePath(__filename), ()=>{
     const table = 'table_name';
     const columns = ['col_a', 'col_b'];
 

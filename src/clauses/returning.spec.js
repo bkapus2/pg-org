@@ -1,9 +1,10 @@
 /* global it, describe */
 import { expect } from 'chai';
 import returning from './returning';
+import printFilePath from '@/utils/printFilePath';
 
 export default function() {
-  describe(__dirname.split('src\\')[1]+'\\returning', ()=>{
+  describe(printFilePath(__filename), ()=>{
     const columns = ['col_a', 'col_b'];
 
     it('should be a function', () => {

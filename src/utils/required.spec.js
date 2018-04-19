@@ -1,9 +1,10 @@
 /* global it, describe */
 import { expect } from 'chai';
 import required from './required';
+import printFilePath from '@/utils/printFilePath';
 
 export default function() {
-  describe(__dirname.split('src\\')[1]+'\\required', () => {
+  describe(printFilePath(__filename), () => {
     const param = 'param';
 
     it('should be a function', () => {
