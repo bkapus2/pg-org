@@ -1,20 +1,14 @@
 import updateStatement from './../core/statements/updateStatement';
+import whereResolver from '@/server/whereResolver';
 
 export default function updateMany(model) {
   const { tableName } = model;
-  return function () {
-    return new Promise((resolve) => {
-      resolve(updateStatement({
-        table: tableName,
-        update: {
-          id: 1000,
-          firstName: 'Brian',
-        },
-        where: {
-          id: 1000,
-        },
-        returning: ['id', 'firstName'],
-      }, model));
+  return function (where, update, queryHandler) {
+    return new Promise((resolve, reject) => {
+      whereResolver(model, where)
+        .then(console.log)
+        .then(resolve)
+        .catch(reject);
     });
   };
 }

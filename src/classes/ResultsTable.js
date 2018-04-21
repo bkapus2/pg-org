@@ -4,6 +4,7 @@ export default class ResultsTable {
     this.columns = columns;
     this.rows = rows;
   }
+
   getCol(name) {
     const index = this.columns.indexOf(name);
     if (index === -1) {
@@ -15,6 +16,7 @@ export default class ResultsTable {
     }
     return colValues;
   }
+
   toObjects() {
     const columns = this.columns;
     const columnsLen = columns.length;
@@ -28,5 +30,9 @@ export default class ResultsTable {
       objects.push(object);
     }
     return objects;
+  }
+
+  get rowCount() {
+    return this.rows.length;
   }
 }

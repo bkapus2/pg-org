@@ -15,8 +15,11 @@ pool.on('error', (err) => {
 async function sendQuery(query) {
   console.log(query.text);
   const client = await pool.connect();
+  const start = Date.now();
   try {
-    return await client.query(query);
+    const result = await client.query(query);
+    console.log('query time:', Date.now() - start);
+    return result;
   } finally {
     client.release();
   }
@@ -89,19 +92,47 @@ const users = table(userModel, sendQuery, { emails, notes });
 //   console.log(JSON.stringify(value, null, '  '))
 // }).catch(console.error);
 
-// console.time('select time');
-// users.select({
-//   emails: {
-//     id: 1000,
-//     // email: 'brian.kupi@gmail.com',
-//   },
-// })
-//   .then(value => {
-//     console.log(value.length);
-//     console.log(JSON.stringify(value, null, '  '));
-//     console.timeEnd('select time');
-//   })
-//   .catch(console.error);
+console.time('select time');
+users.select({
+  // id: 0,
+  // lastName: null,
+  // id: 1000,
+  // emails: {
+  //   id: {
+  //     $equals: 1000,
+  //   },
+  //   email: {
+  //     $in: ['', 'another.user@gmail.com'],
+  //   },
+  // },
+  // emails: {
+  //   id: {
+  //     $greaterThan: 1000,
+  //   },
+  //   // email: 'brian.kupi@gmail.com',
+  // },
+  $or: [
+    {
+      emails: {
+        id: 1000,
+        email: {
+          $in: ['', 'another.user@gmail.com'],
+        },
+      },
+    },
+    {
+      id: {
+        $equals: 1000,
+      },
+    },
+  ],
+})
+  .then(value => {
+    console.log(value.length);
+    // console.log(JSON.stringify(value, null, '  '));
+    console.timeEnd('select time');
+  })
+  .catch(console.error);
 
 // console.time('select time');
 // users.select({
@@ -113,15 +144,38 @@ const users = table(userModel, sendQuery, { emails, notes });
 //   console.timeEnd('select time');
 // }).catch(console.error);
 
-console.time('update time');
-users.update({
-  emails: {
-    id: 1000,
-    // email: 'brian.kupi@gmail.com',
-  },
-})
-  .then(value => {
-    console.log(value);
-    console.timeEnd('update time');
-  })
-  .catch(console.error);
+// console.time('update time');
+// users.update({
+//   firstName: {
+//     $equals: 'Brian',
+//   },
+//   lastName: {
+//     $notEquals: 'User',
+//   },
+//   id: {
+//     $in: [142,144],
+//     $greaterThan: 100,
+//   },
+//   emails: {
+//     $or: [
+//       {
+//         id: 1000,
+//       },
+//       {
+//         id: 1001,
+//       },
+//     ],
+//     // id: 1000,
+//     email: {
+//       $in: [
+//         'another.user@gmail.com',
+//         'brian.kupi@gmail.com',
+//       ],
+//     },
+//   },
+// })
+//   .then(value => {
+//     console.log(value);
+//     console.timeEnd('update time');
+//   })
+//   .catch(console.error);
