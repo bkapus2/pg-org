@@ -1,9 +1,9 @@
 import { Pool } from 'pg';
-import emailModel from './models/email';
-import noteModel from './models/note';
-import userModel from './models/user';
-import table from './server/table';
-import dbParams from '../dbParams.json';
+import emailModel from '@/models/email';
+import noteModel from '@/models/note';
+import userModel from '@/models/user';
+import table from '@/server/table';
+import dbParams from '@/../dbParams.json';
 
 const pool = new Pool(dbParams);
 
@@ -15,11 +15,8 @@ pool.on('error', (err) => {
 async function sendQuery(query) {
   console.log(query.text);
   const client = await pool.connect();
-  const start = Date.now();
   try {
-    const result = await client.query(query);
-    console.log('query time:', Date.now() - start);
-    return result;
+    return await client.query(query);
   } finally {
     client.release();
   }
@@ -92,87 +89,46 @@ const users = table(userModel, sendQuery, { emails, notes });
 //   console.log(JSON.stringify(value, null, '  '))
 // }).catch(console.error);
 
-console.time('select time');
-users.select({
-  // id: 0,
-  // lastName: null,
-  // id: 1000,
-  // emails: {
-  //   id: {
-  //     $equals: 1000,
-  //   },
-  //   email: {
-  //     $in: ['', 'another.user@gmail.com'],
-  //   },
-  // },
-  // emails: {
-  //   id: {
-  //     $greaterThan: 1000,
-  //   },
-  //   // email: 'brian.kupi@gmail.com',
-  // },
-  $or: [
-    {
-      emails: {
-        id: 1000,
-        email: {
-          $in: ['', 'another.user@gmail.com'],
-        },
-      },
-    },
-    {
-      id: {
-        $equals: 1000,
-      },
-    },
-  ],
-})
-  .then(value => {
-    console.log(value.length);
-    // console.log(JSON.stringify(value, null, '  '));
-    console.timeEnd('select time');
-  })
-  .catch(console.error);
-
 // console.time('select time');
 // users.select({
-//   // id: [1000, 1001, 1002],
-//   firstName: ['Brian']
-// }).then(value => {
-//   console.log(value.length);
-//   // console.log(JSON.stringify(value, null, '  '));
-//   console.timeEnd('select time');
-// }).catch(console.error);
+//   emails: {
+//     id: 1000,
+//     // email: 'brian.kupi@gmail.com',
+//   },
+// })
+//   .then(value => {
+//     console.log(value.length);
+//     console.log(JSON.stringify(value, null, '  '));
+//     console.timeEnd('select time');
+//   })
+//   .catch(console.error);
+
+console.time('select time');
+users.select({
+  // id: [1000, 1001, 1002],
+  // firstName: ['Brian'],
+}).then(value => {
+  console.log(value.length);
+  console.log(JSON.stringify(value, null, '  '));
+  console.timeEnd('select time');
+}).catch(console.error);
 
 // console.time('update time');
 // users.update({
-//   firstName: {
-//     $equals: 'Brian',
-//   },
-//   lastName: {
-//     $notEquals: 'User',
-//   },
-//   id: {
-//     $in: [142,144],
-//     $greaterThan: 100,
-//   },
-//   emails: {
-//     $or: [
-//       {
+//   $or: [
+//     {
+//       id: 100,
+//     },
+//     {
+//       emails: {
 //         id: 1000,
 //       },
-//       {
-//         id: 1001,
-//       },
-//     ],
-//     // id: 1000,
-//     email: {
-//       $in: [
-//         'another.user@gmail.com',
-//         'brian.kupi@gmail.com',
-//       ],
 //     },
-//   },
+//   ],
+// }, {
+//   $push: {
+//     notes: [{}]
+//   }
 // })
 //   .then(value => {
 //     console.log(value);

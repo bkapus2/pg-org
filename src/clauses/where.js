@@ -4,6 +4,10 @@ function $or(statements) {
   return statements.map(statement => '( ' + whereSubClause(statement) + ' )').join('\n\tOR ');
 }
 
+function $in(key, values) {
+  
+}
+
 function conditionReducer(conditions, [key, value]) {
   const type = typeof value;
   if (key === '$or') {
