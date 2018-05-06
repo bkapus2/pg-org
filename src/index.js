@@ -104,7 +104,7 @@ const users = table(userModel, sendQuery, { emails, notes });
 //   },
 //   // emails: {
 //   //   id: {
-//   //     $greaterThan: 1000,
+//   //     $gt: 1000,
 //   //   },
 //   //   // email: 'brian.kupi@gmail.com',
 //   // },
@@ -119,7 +119,7 @@ const users = table(userModel, sendQuery, { emails, notes });
 //   //   },
 //   //   {
 //   //     id: {
-//   //       $equals: 1000,
+//   //       $eq: 1000,
 //   //     },
 //   //   },
 //   // ],
@@ -160,14 +160,14 @@ users.select({ id: 1 }).then(()=>{
 // console.time('update time');
 // users.update({
 //   firstName: {
-//     $equals: 'Brian',
+//     $eq: 'Brian',
 //   },
 //   lastName: {
-//     $notEquals: 'User',
+//     $ne: 'User',
 //   },
 //   id: {
 //     $in: [142,144],
-//     $greaterThan: 100,
+//     $gt: 100,
 //   },
 //   emails: {
 //     $or: [

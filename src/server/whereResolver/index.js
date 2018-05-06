@@ -50,7 +50,7 @@ function canCompare(type) {
 }
 
 const comparisonOperators = {
-  $equals(model, prop, value) {
+  $eq(model, prop, value) {
     const { column, type } = model.properties[prop];
     if (value === null) {
       return `${column} IS NULL`;
@@ -60,19 +60,19 @@ const comparisonOperators = {
     }
   },
 
-  $greaterThan(model, prop, value) {
+  $gt(model, prop, value) {
     const { column, type } = model.properties[prop];
     if (!canCompare(type)) {
-      throw Error(`cannot use $greaterThan on type '${type}'`);
+      throw Error(`cannot use $gt on type '${type}'`);
     }
     const convert = typeConverters[type];
     return `${column} > ${convert(value)}`;
   },
 
-  $greaterThanOrEqual(model, prop, value) {
+  $gte(model, prop, value) {
     const { column, type } = model.properties[prop];
     if (!canCompare(type)) {
-      throw Error(`cannot use $greaterThanOrEqual on type '${type}'`);
+      throw Error(`cannot use $gte on type '${type}'`);
     }
     const convert = typeConverters[type];
     return `${column} >= ${convert(value)}`;
@@ -93,25 +93,25 @@ const comparisonOperators = {
     }
   },
 
-  $lessThan(model, prop, value) {
+  $lt(model, prop, value) {
     const { column, type } = model.properties[prop];
     if (!canCompare(type)) {
-      throw Error(`cannot use $lessThan on type '${type}'`);
+      throw Error(`cannot use $lt on type '${type}'`);
     }
     const convert = typeConverters[type];
     return `${column} < ${convert(value)}`;
   },
 
-  $lessThanOrEqual(model, prop, value) {
+  $lte(model, prop, value) {
     const { column, type } = model.properties[prop];
     if (!canCompare(type)) {
-      throw Error(`cannot use $lessThanOrEqual on type '${type}'`);
+      throw Error(`cannot use $lte on type '${type}'`);
     }
     const convert = typeConverters[type];
     return `${column} <= ${convert(value)}`;
   },
 
-  $notEquals(model, prop, value) {
+  $ne(model, prop, value) {
     const { column, type } = model.properties[prop];
     if (value === null) {
       return `${column} IS NOT NULL`;
@@ -121,9 +121,9 @@ const comparisonOperators = {
     }
   },
 
-  $notIn(model, prop, values) {
+  $nin(model, prop, values) {
     if (!Array.isArray(values)) {
-      throw Error(`expected array for ${prop} $notIn operator`);
+      throw Error(`expected array for ${prop} $nin operator`);
     }
     const notNullValues = values.filter(val => val !== null);
     const containsNull = values.length !== notNullValues.length;
