@@ -2,11 +2,12 @@
   "name": "pg-orm",
   "version": "1.0.0",
   "description": "An ORM made specifically for Postgres",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
   "scripts": {
     "start": "set NODE_ENV=development&& nodemon --watch src/ --exec babel-node src",
     "unitTest": "set NODE_ENV=development&& nodemon --watch . --exec \"mocha --bail --require babel-register src/index.spec.js\"",
-    "build": "rollup src/server/table --file dist/index.js --format cjs",
+    "build": "rollup -c",
     "lintFix": "./node_modules/.bin/eslint --fix src/*/**"
   },
   "repository": {
@@ -36,6 +37,7 @@
     "mocha": "^5.0.4",
     "nodemon": "^1.17.1",
     "pg": "^7.4.1",
+    "rollup-plugin-root-import": "^0.2.3",
     "sinon": "^4.4.2",
     "sinon-chai": "^3.0.0"
   }
