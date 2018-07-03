@@ -2,7 +2,7 @@
   "name": "pg-orm",
   "version": "1.0.0",
   "description": "An ORM made specifically for Postgres",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "start": "set NODE_ENV=development&& nodemon --watch src/ --exec babel-node src",
     "unitTest": "set NODE_ENV=development&& nodemon --watch . --exec \"mocha --bail --require babel-register src/index.spec.js\"",
