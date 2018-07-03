@@ -137,7 +137,7 @@ const comparisonOperators = {
   },
 };
 
-const booleanOperators = {
+const logicalOperators = {
   $or(model, queries) {
     return new Promise((resolve, reject) => {
       Promise.all(queries.map(query => resolveWhere(model, query)))
@@ -169,8 +169,8 @@ function resolveWhere(model, where) {
   return new Promise((resolve, reject) => {
     const queryPartPromises = [];
     Object.entries(where).forEach(([key, value]) => {
-      if (key in booleanOperators) {
-        queryPartPromises.push(booleanOperators[key](model, value));
+      if (key in logicalOperators) {
+        queryPartPromises.push(logicalOperators[key](model, value));
       }
       
       else if (key in properties) {

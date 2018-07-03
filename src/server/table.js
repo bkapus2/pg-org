@@ -1,7 +1,7 @@
 import updateModel from './updateModel';
-import insertMany from './insert';
-import selectMany from './select';
-import updateMany from './update';
+import insertMany from './insert/index';
+import selectMany from './select/index';
+import updateMany from './update/index';
 
 function deleteMany() {
   return function () {

@@ -157,38 +157,42 @@ users.select({ id: 1 }).then(()=>{
 //   console.timeEnd('select time');
 // }).catch(console.error);
 
-// console.time('update time');
-// users.update({
-//   firstName: {
-//     $eq: 'Brian',
-//   },
-//   lastName: {
-//     $ne: 'User',
-//   },
-//   id: {
-//     $in: [142,144],
-//     $gt: 100,
-//   },
-//   emails: {
-//     $or: [
-//       {
-//         id: 1000,
-//       },
-//       {
-//         id: 1001,
-//       },
-//     ],
-//     // id: 1000,
-//     email: {
-//       $in: [
-//         'another.user@gmail.com',
-//         'brian.kupi@gmail.com',
-//       ],
-//     },
-//   },
-// })
-//   .then(value => {
-//     console.log(value);
-//     console.timeEnd('update time');
-//   })
-//   .catch(console.error);
+console.time('update time');
+users.update({
+  emails: {
+    email: {
+      $in: ['brian.kupi@gmail.com'],
+    },
+  },
+}, {
+  emails: {
+    $update: [
+      {
+        $set: {
+          email: 'briankupi@gmail.com',
+        },
+        $where: {
+          email: 'brian.kupi@gmail.com',
+        },
+      },
+    ],
+    $push: [
+      {
+        email: 'brian.kupi@gmail.com',
+      },
+    ],
+  },
+  notes: {
+    $push: [
+      {
+        title: 'Updating this user',
+        body: 'His name is Brian.',
+      },
+    ],
+  },
+})
+  .then(value => {
+    console.log(value);
+    console.timeEnd('update time');
+  })
+  .catch(console.error);

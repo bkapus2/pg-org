@@ -1,4 +1,4 @@
-import updateStatement from './../core/statements/updateStatement';
+import updateStatement from '@/server/core/statements/updateStatement';
 import whereResolver from '@/server/whereResolver';
 
 export default function updateMany(model) {

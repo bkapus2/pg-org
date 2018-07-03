@@ -6,7 +6,7 @@
   "scripts": {
     "start": "set NODE_ENV=development&& nodemon --watch src/ --exec babel-node src",
     "unitTest": "set NODE_ENV=development&& nodemon --watch . --exec \"mocha --bail --require babel-register src/index.spec.js\"",
-    "build": "babel lib -d dist --presets es2015,stage-2",
+    "build": "rollup src/server/table --file dist/index.js --format cjs",
     "lintFix": "./node_modules/.bin/eslint --fix src/*/**"
   },
   "repository": {
@@ -22,6 +22,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-root-import": "^5.1.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "babel-plugin-transform-object-entries": "^1.0.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
