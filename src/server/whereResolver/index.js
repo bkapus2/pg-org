@@ -36,6 +36,32 @@ const typeHandlers = {
       return `${ column } = ${ integer(value) }`;
     }
   },
+  date(model, prop, value) {
+    const { properties } = model;
+    const propModel = properties[prop];
+    if (value === null) {
+      const { column } = propModel;
+      return `${ column } IS NULL`;
+    } else if (typeof value === 'object') { 
+      return resolveComparisonOperators(model, prop, value);
+    } else {
+      const { column } = propModel;
+      return `${ column } = ${ date(value) }`;
+    }
+  },
+  datetime(model, prop, value) {
+    const { properties } = model;
+    const propModel = properties[prop];
+    if (value === null) {
+      const { column } = propModel;
+      return `${ column } IS NULL`;
+    } else if (typeof value === 'object') { 
+      return resolveComparisonOperators(model, prop, value);
+    } else {
+      const { column } = propModel;
+      return `${ column } = ${ datetime(value) }`;
+    }
+  },
 };
 
 function resolveComparisonOperators(model, prop, value) {
