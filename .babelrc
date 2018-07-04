@@ -1,14 +1,7 @@
 {
   "presets": ["env"],
   "plugins": [
-    ["babel-plugin-transform-object-entries"],
-    [
-      "babel-plugin-root-import",
-      {
-        "rootPathPrefix": "@",
-        "rootPathSuffix": "src/"
-      }
-    ]
+    ["babel-plugin-transform-object-entries"]
   ],
   "env": {
     "test": {

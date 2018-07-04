@@ -1,12 +1,12 @@
 import {
-  text, integer, date, datetime,
+  text, integer, date, timestamp,
 } from '../convert/queryTypes';
 
 const typeConverters = {
   text,
   integer,
   date,
-  datetime,
+  timestamp,
 };
 
 const typeHandlers = {
@@ -49,7 +49,7 @@ const typeHandlers = {
       return `${ column } = ${ date(value) }`;
     }
   },
-  datetime(model, prop, value) {
+  timestamp(model, prop, value) {
     const { properties } = model;
     const propModel = properties[prop];
     if (value === null) {
@@ -59,7 +59,7 @@ const typeHandlers = {
       return resolveComparisonOperators(model, prop, value);
     } else {
       const { column } = propModel;
-      return `${ column } = ${ datetime(value) }`;
+      return `${ column } = ${ timestamp(value) }`;
     }
   },
 };

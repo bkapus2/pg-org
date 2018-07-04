@@ -1,7 +1,7 @@
 import _integer from './converters/integer';
 import _text from './converters/text';
 import _date from './converters/date';
-import _datetime from './converters/datetime';
+import _timestamp from './converters/timestamp';
 
 function addInsertLogic(fn) {
   return function converter(value) {
@@ -18,4 +18,4 @@ function addInsertLogic(fn) {
 export const integer = addInsertLogic(_integer);
 export const text = addInsertLogic(_text);
 export const date = addInsertLogic(_date);
-export const datetime = addInsertLogic(_datetime);
+export const timestamp = addInsertLogic(_timestamp);

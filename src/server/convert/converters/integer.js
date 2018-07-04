@@ -1,4 +1,4 @@
-export default function integer(value, model) {
+export default function integer(value) {
   if (Number.isInteger(value)) {
     return value;
   } else {

@@ -1,4 +1,4 @@
-export default function integer(value) {
+export default function date(value) {
   if (value instanceof Date) {
     return '\'' + value.toLocaleDateString() + '\'';
   } else {

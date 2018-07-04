@@ -157,7 +157,7 @@ function integer$2(value) {
   if (value instanceof Date) {
     return '\'' + value.toLocaleString() + '\'';
   } else {
-    throw Error('\'value\' is not a datetime');
+    throw Error('\'value\' is not a timestamp');
   }
 }
 
@@ -176,13 +176,13 @@ function addInsertLogic(fn) {
 const integer$3 = addInsertLogic(integer);
 const text$1 = addInsertLogic(text);
 const date = addInsertLogic(integer$1);
-const datetime = addInsertLogic(integer$2);
+const timestamp = addInsertLogic(integer$2);
 
 var insertTypes = /*#__PURE__*/Object.freeze({
   integer: integer$3,
   text: text$1,
   date: date,
-  datetime: datetime
+  timestamp: timestamp
 });
 
 function getInsertValues(propModels, props, entities) {
@@ -366,7 +366,7 @@ const typeConverters = {
   text,
   integer,
   date: integer$1,
-  datetime: integer$2,
+  timestamp: integer$2,
 };
 
 const typeHandlers = {
@@ -409,7 +409,7 @@ const typeHandlers = {
       return `${ column } = ${ integer$1(value) }`;
     }
   },
-  datetime(model, prop, value) {
+  timestamp(model, prop, value) {
     const { properties } = model;
     const propModel = properties[prop];
     if (value === null) {

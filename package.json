@@ -6,7 +6,7 @@
   "module": "dist/index.esm.js",
   "scripts": {
     "start": "set NODE_ENV=development&& nodemon --watch src/ --exec babel-node src",
-    "unitTest": "set NODE_ENV=development&& nodemon --watch . --exec \"mocha --bail --require babel-register src/index.spec.js\"",
+    "unitTest": "set NODE_ENV=development&& nodemon --watch . --exec \"mocha --bail --require babel-register --require babel-polyfill src/index.spec.js\"",
     "build": "rollup -c",
     "lintFix": "./node_modules/.bin/eslint --fix src/*/**"
   },
@@ -22,7 +22,6 @@
   "homepage": "https://github.com/bkapus2/query#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-plugin-root-import": "^5.1.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "babel-plugin-transform-object-entries": "^1.0.0",
     "babel-polyfill": "^6.26.0",

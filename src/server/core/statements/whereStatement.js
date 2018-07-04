@@ -1,5 +1,5 @@
 import {
-  text, integer, date, datetime,
+  text, integer, date, timestamp,
 } from '../convert/queryTypes';
 
 const typeHandlers = {
@@ -42,7 +42,7 @@ const typeHandlers = {
       return `${ column } = ${ date(arg) }`;
     }
   },
-  datetime(arg, propModel) {
+  timestamp(arg, propModel) {
     const { column } = propModel;
     if (arg === null) {
       return `${ column } IS NULL`;
@@ -50,9 +50,9 @@ const typeHandlers = {
       if (arg.includes(null)) {
         throw Error('Cannot use null');
       }
-      return `${ column } IN(${arg.map(datetime).join(', ')})`;
+      return `${ column } IN(${arg.map(timestamp).join(', ')})`;
     } else {
-      return `${ column } = ${ datetime(arg) }`;
+      return `${ column } = ${ timestamp(arg) }`;
     }
   },
 };

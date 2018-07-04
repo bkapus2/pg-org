@@ -2,7 +2,9 @@ CREATE TABLE users (
 	user_id SERIAL PRIMARY KEY,
 	first_name TEXT,
 	last_name TEXT,
-	username TEXT
+	username TEXT,
+	birthday DATE,
+	updated TIMESTAMP
 );
 
 CREATE TABLE emails (
@@ -15,5 +17,5 @@ CREATE TABLE notes (
 	note_id SERIAL PRIMARY KEY,
 	user_id INTEGER REFERENCES users,
 	title TEXT NOT NULL,
-	body TEXT,
+	body TEXT
 );
