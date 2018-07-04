@@ -498,6 +498,15 @@ const logicalOperators = {
         .catch(reject);
     });
   },
+  $and(model, queries) {
+    return new Promise((resolve, reject) => {
+      Promise.all(queries.map(query => resolveWhere(model, query)))
+        .then(queryTexts => queryTexts.map(text$$1 => `( ${text$$1} )`).join(' AND '))
+        .then(query => `( ${query} )`)
+        .then(resolve)
+        .catch(reject);
+    });
+  },
 };
 
 function mapResults(model, relationProp) {
