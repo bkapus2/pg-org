@@ -1,9 +1,13 @@
 import text from '../convert/text';
 import integer from '../convert/integer';
+import date from '../convert/date';
+import datetime from '../convert/datetime';
 
 const typeConverters = {
   text,
   integer,
+  date,
+  datetime,
 };
 
 const typeHandlers = {

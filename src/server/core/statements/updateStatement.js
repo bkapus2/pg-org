@@ -1,13 +1,17 @@
 import required from './../../../utils/required';
 import getWhereStatement from './whereStatement';
-import text from './../../convert/text';
-import integer from './../../convert/integer';
+import text from '../convert/text';
+import integer from '../convert/integer';
+import date from '../convert/date';
+import datetime from '../convert/datetime';
 
 const isEmpty = obj => Object.keys(obj).length === 0;
 
 const typeHandlers = {
   text,
   integer,
+  date,
+  datetime,
 };
 
 function getSetters(update, properties) {

@@ -1,5 +1,7 @@
-import text from './../../convert/text';
-import integer from './../../convert/integer';
+import text from '../convert/text';
+import integer from '../convert/integer';
+import date from '../convert/date';
+import datetime from '../convert/datetime';
 
 const typeHandlers = {
   text(arg, propModel) {
@@ -26,6 +28,32 @@ const typeHandlers = {
       return `${ column } IN(${arg.map(integer).join(', ')})`;
     } else {
       return `${ column } = ${ integer(arg) }`;
+    }
+  },
+  date(arg, propModel) {
+    const { column } = propModel;
+    if (arg === null) {
+      return `${ column } IS NULL`;
+    } else if (Array.isArray(arg)) {
+      if (arg.includes(null)) {
+        throw Error('Cannot use null');
+      }
+      return `${ column } IN(${arg.map(date).join(', ')})`;
+    } else {
+      return `${ column } = ${ date(arg) }`;
+    }
+  },
+  datetime(arg, propModel) {
+    const { column } = propModel;
+    if (arg === null) {
+      return `${ column } IS NULL`;
+    } else if (Array.isArray(arg)) {
+      if (arg.includes(null)) {
+        throw Error('Cannot use null');
+      }
+      return `${ column } IN(${arg.map(datetime).join(', ')})`;
+    } else {
+      return `${ column } = ${ datetime(arg) }`;
     }
   },
 };
