@@ -129,49 +129,61 @@ function getInsertProps(propModels) {
   return props;
 }
 
-function isNullOrUndefined(value) {
-  return value === null || value === undefined;
-}
-
-function text(value, model) {
-  if (isNullOrUndefined(value)) {
-    if (model.defaultValue) {
-      return model.defaultValue;
-    } else {
-      return 'NULL';
-    }
-  } else {
-    if (typeof value === 'string') {
-      return '\'' + value + '\'';
-    } else {
-      throw Error('\'value\' is not a string');
-    }
-  }
-}
-
 function integer(value, model) {
-  if (isNullOrUndefined(value)) {
-    if (model.defaultValue) {
-      return model.defaultValue;
-    } else {
-      return 'NULL';
-    }
+  if (Number.isInteger(value)) {
+    return value;
   } else {
-    if (Number.isInteger(value)) {
-      return value;
-    } else {
-      throw Error('\'value\' is not a number');
-    }
+    throw Error('\'value\' is not a number');
   }
 }
 
-const converters = {
-  text,
-  integer,
-  default() {
-    throw Error('unsupported type');
-  },
-};
+function text(value) {
+  if (typeof value === 'string') {
+    return '\'' + value.replace('\'','\'\'') + '\'';
+  } else {
+    throw Error('\'value\' is not a string');
+  }
+}
+
+function integer$1(value) {
+  if (value instanceof Date) {
+    return '\'' + value.toLocaleDateString() + '\'';
+  } else {
+    throw Error('\'value\' is not a date');
+  }
+}
+
+function integer$2(value) {
+  if (value instanceof Date) {
+    return '\'' + value.toLocaleString() + '\'';
+  } else {
+    throw Error('\'value\' is not a datetime');
+  }
+}
+
+function addInsertLogic(fn) {
+  return function converter(value) {
+    if (value === null) {
+      return 'NULL';
+    } else if (value === undefined) {
+      return 'DEFAULT';
+    } else {
+      fn(value);
+    }
+  };
+}
+
+const integer$3 = addInsertLogic(integer);
+const text$1 = addInsertLogic(text);
+const date = addInsertLogic(integer$1);
+const datetime = addInsertLogic(integer$2);
+
+var insertTypes = /*#__PURE__*/Object.freeze({
+  integer: integer$3,
+  text: text$1,
+  date: date,
+  datetime: datetime
+});
 
 function getInsertValues(propModels, props, entities) {
   var rows = [];
@@ -179,7 +191,7 @@ function getInsertValues(propModels, props, entities) {
     var row = [];
     for (var prop of props) {
       var propModel = propModels[prop];
-      row.push(converters[propModel.type](entity[prop], propModel));
+      row.push(insertTypes[propModel.type](entity[prop]));
     }
     rows.push(row);
   }
@@ -353,6 +365,8 @@ function parseSelectArgs({ args, model }) {
 const typeConverters = {
   text,
   integer,
+  date: integer$1,
+  datetime: integer$2,
 };
 
 const typeHandlers = {
