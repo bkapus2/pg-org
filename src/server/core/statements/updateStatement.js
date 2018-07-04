@@ -1,18 +1,8 @@
 import required from './../../../utils/required';
 import getWhereStatement from './whereStatement';
-import text from '../convert/text';
-import integer from '../convert/integer';
-import date from '../convert/date';
-import datetime from '../convert/datetime';
+import * as insertTypes from '../../convert/insertTypes';
 
 const isEmpty = obj => Object.keys(obj).length === 0;
-
-const typeHandlers = {
-  text,
-  integer,
-  date,
-  datetime,
-};
 
 function getSetters(update, properties) {
   const setters = Object.entries(update).reduce((setters, [key, value]) => {
@@ -21,11 +11,11 @@ function getSetters(update, properties) {
       throw Error(`Unknown property ${key}`);
     }
     const { column, type } = propModel;
-    const convert = typeHandlers[type];
+    const convert = insertTypes[type];
     if (!convert) {
       throw Error(`Cannot update type '${type}'`);
     }
-    setters.push(`${column}=${typeHandlers[type](value)}`);
+    setters.push(`${column}=${convert(value)}`);
     return setters;
   },[]);
   return setters;

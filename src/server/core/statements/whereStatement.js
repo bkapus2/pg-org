@@ -1,7 +1,6 @@
-import text from '../convert/text';
-import integer from '../convert/integer';
-import date from '../convert/date';
-import datetime from '../convert/datetime';
+import {
+  text, integer, date, datetime,
+} from '../convert/queryTypes';
 
 const typeHandlers = {
   text(arg, propModel) {

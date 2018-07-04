@@ -1,17 +1,4 @@
-import text from '../convert/text';
-import integer from '../convert/integer';
-import date from '../convert/date';
-import datetime from '../convert/datetime';
-
-const converters = {
-  text,
-  integer,
-  date,
-  datetime,
-  default() {
-    throw Error('unsupported type');
-  },
-};
+import * as insertTypes from '../../convert/insertTypes';
 
 export default function getInsertValues(propModels, props, entities) {
   var rows = [];
@@ -19,7 +6,7 @@ export default function getInsertValues(propModels, props, entities) {
     var row = [];
     for (var prop of props) {
       var propModel = propModels[prop];
-      row.push(converters[propModel.type](entity[prop], propModel));
+      row.push(insertTypes[propModel.type](entity[prop]));
     }
     rows.push(row);
   }
