@@ -1,8 +1,8 @@
 /* global it, describe */
-import normalizeText from '@/utils/normalizeText';
+import normalizeText from '../utils/normalizeText';
 import { expect } from 'chai';
 import whereClause from './where';
-import printFilePath from '@/utils/printFilePath';
+import printFilePath from '../utils/printFilePath';
 
 export default function() {
   describe(printFilePath(__filename), () => {

@@ -2,7 +2,7 @@
 import { expect } from 'chai';
 import selectStatement from './select';
 import normalizeText from '../utils/normalizeText';
-import printFilePath from '@/utils/printFilePath';
+import printFilePath from '../utils/printFilePath';
 
 export default function() {
   describe(printFilePath(__filename), ()=>{

@@ -1,4 +1,4 @@
-import required from '@/utils/required';
+import required from '../utils/required';
 
 function $or(statements) {
   return statements.map(statement => '( ' + whereSubClause(statement) + ' )').join('\n\tOR ');

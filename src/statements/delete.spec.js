@@ -1,7 +1,7 @@
 /* global it, describe */
 import { expect } from 'chai';
 import del from './delete';
-import printFilePath from '@/utils/printFilePath';
+import printFilePath from '../utils/printFilePath';
 
 export default function() {
   describe(printFilePath(__filename), ()=>{

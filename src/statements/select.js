@@ -1,6 +1,6 @@
-import required from '@/utils/required';
-import selectClause from '@/clauses/select';
-import whereClause from '@/clauses/where';
+import required from '../utils/required';
+import selectClause from '../clauses/select';
+import whereClause from '../clauses/where';
 
 export default function select(options) {
   const {

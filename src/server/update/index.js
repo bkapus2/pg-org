@@ -1,5 +1,5 @@
-import updateStatement from '@/server/core/statements/updateStatement';
-import whereResolver from '@/server/whereResolver';
+// import updateStatement from '../core/statements/updateStatement';
+import whereResolver from '../whereResolver';
 
 export default function updateMany(model) {
   const { tableName } = model;

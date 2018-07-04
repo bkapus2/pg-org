@@ -1,9 +1,9 @@
 import { Pool } from 'pg';
-import emailModel from '@/models/email';
-import noteModel from '@/models/note';
-import userModel from '@/models/user';
-import table from '@/server/table';
-import dbParams from '@/../dbParams.json';
+import emailModel from './models/email';
+import noteModel from './models/note';
+import userModel from './models/user';
+import table from './server/table';
+import dbParams from '../dbParams';
 
 const pool = new Pool(dbParams);
 

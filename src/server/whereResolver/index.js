@@ -1,5 +1,5 @@
-import text from '@/server/convert/text';
-import integer from '@/server/convert/integer';
+import text from '../convert/text';
+import integer from '../convert/integer';
 
 const typeConverters = {
   text,

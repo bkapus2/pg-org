@@ -1,4 +1,4 @@
-import required from '@/utils/required';
+import required from '../utils/required';
 
 function rowValueMapper(value) {
   const type = typeof value;

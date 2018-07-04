@@ -1,4 +1,4 @@
-import required from '@/utils/required';
+import required from '../utils/required';
 
 export default function select(params) {
   const { table = required('table') } = params;

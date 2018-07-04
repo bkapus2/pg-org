@@ -1,5 +1,5 @@
 // import whereStatement from './../core/statements/whereStatement';
-import whereResolver from '@/server/whereResolver';
+import whereResolver from '../whereResolver';
 
 export default function selectProperties({ query, model, queryHandler, selectProps, options }) {
   const { mode, distinct } = options;
