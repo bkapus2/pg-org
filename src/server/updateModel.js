@@ -37,7 +37,6 @@ export default function(userDefinedModel, relatedTables) {
   }, {});
 
   function objectMap({ rows, fields }) {
-    console.time('array to object map');
     const props = fields.map(field => columnPropHash[field.name]);
     const entities = [];
     for (var row of rows) {
@@ -48,7 +47,6 @@ export default function(userDefinedModel, relatedTables) {
       }
       entities.push(entity);
     }
-    console.timeEnd('array to object map');
     return entities;
   }
 

@@ -10,7 +10,7 @@ function addInsertLogic(fn) {
     } else if (value === undefined) {
       return 'DEFAULT';
     } else {
-      fn(value);
+      return fn(value);
     }
   };
 }

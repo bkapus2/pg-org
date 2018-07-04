@@ -6,7 +6,7 @@ export default function getInsertValues(propModels, props, entities) {
     var row = [];
     for (var prop of props) {
       var propModel = propModels[prop];
-      row.push(insertTypes[propModel.type](entity[prop]));
+      row.push(insertTypes[propModel.type](entity[prop], propModel));
     }
     rows.push(row);
   }

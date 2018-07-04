@@ -17,7 +17,6 @@ export default function insertProperties({ model, entities, queryHandler }) {
       INSERT INTO ${tableName} (${insertColumns.join(', ')})
       VALUES ${insertValues.map(row => '(' + row.join(', ') + ')').join(', ')}
       RETURNING ${returnColumns.join(', ')};`;
-    console.log(text);
     queryHandler({ text, rowMode: 'array' })
       .then(objectMap)
       .then(resolve)

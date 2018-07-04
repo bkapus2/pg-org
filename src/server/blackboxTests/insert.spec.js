@@ -16,10 +16,10 @@ export default function() {
         },
       ]);
       expect(result).to.have.lengthOf(1);
-      expect(result[1]).to.have.property('email');
-      expect(result[1].email).to.be.equal('brian.kupi@gmail.com');
-      expect(result[1]).to.have.property('id');
-      expect(result[1].id).to.not.be.empty();
+      expect(result[0]).to.have.property('email');
+      expect(result[0].email).to.be.equal('brian.kupi@gmail.com');
+      expect(result[0]).to.have.property('id');
+      expect(result[0].id).to.be.a('number');
     });
   });
 }
