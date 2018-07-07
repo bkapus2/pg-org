@@ -1,7 +1,7 @@
 /* global describe, before, afterEach, it */
 import { expect } from 'chai';
 import clearTables from '../testUtils/clearTables';
-import { users } from '../testUtils/tables';
+import { users, emails } from '../testUtils/tables';
 // import executeQuery from '../testUtils/executeQuery';
 
 async function insertTestRecords() {
@@ -220,6 +220,19 @@ export default function() {
         notes: { dateEntered: { $gt: new Date('2017/01/02') } },
       });
       expect(result3).to.have.lengthOf(0);
+    });
+
+    it('should be able promise chain around aggregators', async function() {
+      const result1 = await users.select({
+        id: {
+          $in: emails.select(['userId'], {
+            address: 'email:2.1',
+          }, { mode: 'array' }).then(table => table.getCol('userId')),
+        },
+      });
+      expect(result1).to.have.lengthOf(1);
+      expect(result1[0]).to.have.property('firstName');
+      expect(result1[0].firstName).to.be.equal('fName:2');
     });
 
     // it('should be able use the $size aggregator', async function() {

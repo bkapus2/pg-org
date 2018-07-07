@@ -65,12 +65,13 @@ const typeHandlers = {
 };
 
 function resolveComparisonOperators(model, prop, value) {
-  return Object.entries(value).map(([operator, value]) => {
+  const values = Object.entries(value).map(([operator, value]) => {
     if (!(operator in comparisonOperators)) {
       throw Error(`'${operator}' is not a valid operator for '${prop}'`);
     }
     return comparisonOperators[operator](model, prop, value);
-  }).join(' AND ');
+  });
+  return Promise.all(values).then(values => values.join(' AND '));
 }
 
 const comparableTypes = ['integer', 'date', 'timestamp'];
@@ -78,8 +79,17 @@ function canCompare(type) {
   return comparableTypes.includes(type);
 }
 
+function promiseHandler (operator) {
+  return function(model, prop, value) {
+    if (value instanceof Promise) {
+      return value.then(value =>  operator(model, prop, value));
+    } else {
+      return operator(model, prop, value);
+    }
+  }
+}
 const comparisonOperators = {
-  $eq(model, prop, value) {
+  $eq: promiseHandler( function (model, prop, value) {
     const { column, type } = model.properties[prop];
     if (value === null) {
       return `${column} IS NULL`;
@@ -87,27 +97,27 @@ const comparisonOperators = {
       const converter = typeConverters[type];
       return `${column} = ${converter(value)}`;
     }
-  },
+  }),
 
-  $gt(model, prop, value) {
+  $gt: promiseHandler( function (model, prop, value) {
     const { column, type } = model.properties[prop];
     if (!canCompare(type)) {
       throw Error(`cannot use $gt on type '${type}'`);
     }
     const convert = typeConverters[type];
     return `${column} > ${convert(value)}`;
-  },
+  }),
 
-  $gte(model, prop, value) {
+  $gte: promiseHandler( function (model, prop, value) {
     const { column, type } = model.properties[prop];
     if (!canCompare(type)) {
       throw Error(`cannot use $gte on type '${type}'`);
     }
     const convert = typeConverters[type];
     return `${column} >= ${convert(value)}`;
-  },
+  }),
 
-  $in(model, prop, values) {
+  $in: promiseHandler( function (model, prop, values) {
     if (!Array.isArray(values)) {
       throw Error(`expected array for ${prop} $in operator`);
     }
@@ -120,27 +130,27 @@ const comparisonOperators = {
     } else {
       return `${column} IN (${notNullValues.map(typeConverter).join(',')})`;
     }
-  },
+  }),
 
-  $lt(model, prop, value) {
+  $lt: promiseHandler( function (model, prop, value) {
     const { column, type } = model.properties[prop];
     if (!canCompare(type)) {
       throw Error(`cannot use $lt on type '${type}'`);
     }
     const convert = typeConverters[type];
     return `${column} < ${convert(value)}`;
-  },
+  }),
 
-  $lte(model, prop, value) {
+  $lte: promiseHandler( function (model, prop, value) {
     const { column, type } = model.properties[prop];
     if (!canCompare(type)) {
       throw Error(`cannot use $lte on type '${type}'`);
     }
     const convert = typeConverters[type];
     return `${column} <= ${convert(value)}`;
-  },
+  }),
 
-  $ne(model, prop, value) {
+  $ne: promiseHandler( function (model, prop, value) {
     const { column, type } = model.properties[prop];
     if (value === null) {
       return `${column} IS NOT NULL`;
@@ -148,9 +158,9 @@ const comparisonOperators = {
       const converter = typeConverters[type];
       return `${column} != ${converter(value)}`;
     }
-  },
+  }),
 
-  $nin(model, prop, values) {
+  $nin: promiseHandler( function (model, prop, values) {
     if (!Array.isArray(values)) {
       throw Error(`expected array for ${prop} $nin operator`);
     }
@@ -163,7 +173,7 @@ const comparisonOperators = {
     } else {
       return `${column} NOT IN (${notNullValues.map(typeConverter).join(',')})`;
     }
-  },
+  }),
 };
 
 const logicalOperators = {

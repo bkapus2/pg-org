@@ -10,9 +10,9 @@ pool.on('error', (err) => {
 
 export default async function executeQuery(query) {
   const client = await pool.connect();
+  console.log(query.text);
   try {
     const result = await client.query(query);
-    console.log(query.text);
     return result;
   } finally {
     client.release();
