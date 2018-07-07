@@ -6,7 +6,6 @@ function oneToManySingleKeyJoin({ parents, relationKey, relationModel }) {
   const ids = parents.map(entity => entity[parentKey]);
   return table.select({ [childKey]: { $in:ids }})
     .then(children => {
-      console.time(relationKey +' join time');
       const hash = {};
 
       parents.forEach(parent => {
@@ -27,7 +26,6 @@ function oneToManySingleKeyJoin({ parents, relationKey, relationModel }) {
       //   }
       // });
 
-      console.timeEnd(relationKey + ' join time');
     });
 }
 

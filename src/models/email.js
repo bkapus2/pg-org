@@ -11,7 +11,7 @@ export default {
       column: 'user_id',
       type: 'integer',
     },
-    email: {
+    address: {
       column: 'email_address',
       type: 'text',
     },

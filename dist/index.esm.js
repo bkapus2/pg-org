@@ -74,7 +74,6 @@ function updateModel(userDefinedModel, relatedTables) {
   }, {});
 
   function objectMap({ rows, fields }) {
-    console.time('array to object map');
     const props = fields.map(field => columnPropHash[field.name]);
     const entities = [];
     for (var row of rows) {
@@ -85,7 +84,6 @@ function updateModel(userDefinedModel, relatedTables) {
       }
       entities.push(entity);
     }
-    console.timeEnd('array to object map');
     return entities;
   }
 
@@ -129,7 +127,7 @@ function getInsertProps(propModels) {
   return props;
 }
 
-function integer(value, model) {
+function integer(value) {
   if (Number.isInteger(value)) {
     return value;
   } else {
@@ -145,7 +143,7 @@ function text(value) {
   }
 }
 
-function integer$1(value) {
+function date(value) {
   if (value instanceof Date) {
     return '\'' + value.toLocaleDateString() + '\'';
   } else {
@@ -153,7 +151,7 @@ function integer$1(value) {
   }
 }
 
-function integer$2(value) {
+function timestamp(value) {
   if (value instanceof Date) {
     return '\'' + value.toLocaleString() + '\'';
   } else {
@@ -168,21 +166,21 @@ function addInsertLogic(fn) {
     } else if (value === undefined) {
       return 'DEFAULT';
     } else {
-      fn(value);
+      return fn(value);
     }
   };
 }
 
-const integer$3 = addInsertLogic(integer);
+const integer$1 = addInsertLogic(integer);
 const text$1 = addInsertLogic(text);
-const date = addInsertLogic(integer$1);
-const timestamp = addInsertLogic(integer$2);
+const date$1 = addInsertLogic(date);
+const timestamp$1 = addInsertLogic(timestamp);
 
 var insertTypes = /*#__PURE__*/Object.freeze({
-  integer: integer$3,
+  integer: integer$1,
   text: text$1,
-  date: date,
-  timestamp: timestamp
+  date: date$1,
+  timestamp: timestamp$1
 });
 
 function getInsertValues(propModels, props, entities) {
@@ -191,7 +189,7 @@ function getInsertValues(propModels, props, entities) {
     var row = [];
     for (var prop of props) {
       var propModel = propModels[prop];
-      row.push(insertTypes[propModel.type](entity[prop]));
+      row.push(insertTypes[propModel.type](entity[prop], propModel));
     }
     rows.push(row);
   }
@@ -225,7 +223,6 @@ function insertProperties({ model, entities, queryHandler }) {
       INSERT INTO ${tableName} (${insertColumns.join(', ')})
       VALUES ${insertValues.map(row => '(' + row.join(', ') + ')').join(', ')}
       RETURNING ${returnColumns.join(', ')};`;
-    console.log(text);
     queryHandler({ text, rowMode: 'array' })
       .then(objectMap)
       .then(resolve)
@@ -365,8 +362,8 @@ function parseSelectArgs({ args, model }) {
 const typeConverters = {
   text,
   integer,
-  date: integer$1,
-  timestamp: integer$2,
+  date,
+  timestamp,
 };
 
 const typeHandlers = {
@@ -406,7 +403,7 @@ const typeHandlers = {
       return resolveComparisonOperators(model, prop, value);
     } else {
       const { column } = propModel;
-      return `${ column } = ${ integer$1(value) }`;
+      return `${ column } = ${ date(value) }`;
     }
   },
   timestamp(model, prop, value) {
@@ -419,7 +416,7 @@ const typeHandlers = {
       return resolveComparisonOperators(model, prop, value);
     } else {
       const { column } = propModel;
-      return `${ column } = ${ integer$2(value) }`;
+      return `${ column } = ${ timestamp(value) }`;
     }
   },
 };
@@ -638,7 +635,6 @@ function oneToManySingleKeyJoin({ parents, relationKey, relationModel }) {
   const ids = parents.map(entity => entity[parentKey]);
   return table.select({ [childKey]: { $in:ids }})
     .then(children => {
-      console.time(relationKey +' join time');
       const hash = {};
 
       parents.forEach(parent => {
@@ -659,7 +655,6 @@ function oneToManySingleKeyJoin({ parents, relationKey, relationModel }) {
       //   }
       // });
 
-      console.timeEnd(relationKey + ' join time');
     });
 }
 
