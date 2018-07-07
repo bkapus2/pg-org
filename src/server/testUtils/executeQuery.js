@@ -12,6 +12,7 @@ export default async function executeQuery(query) {
   const client = await pool.connect();
   try {
     const result = await client.query(query);
+    console.log(query.text);
     return result;
   } finally {
     client.release();

@@ -73,7 +73,7 @@ function resolveComparisonOperators(model, prop, value) {
   }).join(' AND ');
 }
 
-const comparableTypes = ['integer'];
+const comparableTypes = ['integer', 'date', 'timestamp'];
 function canCompare(type) {
   return comparableTypes.includes(type);
 }

@@ -19,5 +19,9 @@ export default {
       column: 'body',
       type: 'text',
     },
+    dateEntered: {
+      column: 'entered_on',
+      type: 'date',
+    },
   },
 };

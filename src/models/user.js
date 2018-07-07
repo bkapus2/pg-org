@@ -19,6 +19,10 @@ export default {
       column: 'username',
       type: 'text',
     },
+    birthday: {
+      column: 'birthday',
+      type: 'date',
+    },
   },
   relations: {
     emails: {

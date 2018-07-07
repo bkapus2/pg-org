@@ -17,5 +17,6 @@ CREATE TABLE notes (
 	note_id SERIAL PRIMARY KEY,
 	user_id INTEGER REFERENCES users,
 	title TEXT NOT NULL,
-	body TEXT
+	body TEXT,
+	entered_on DATE
 );

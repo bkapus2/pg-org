@@ -5,7 +5,7 @@ import { users, emails } from '../testUtils/tables';
 // import executeQuery from '../testUtils/executeQuery';
 
 export default function() {
-  describe('inserts', function() {
+  describe('<collection> #insert', function() {
     before(clearTables);
     afterEach(clearTables);
 
